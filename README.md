@@ -12,7 +12,7 @@
 [![PostgreSQL](https://img.shields.io/badge/PostgreSQL-16-316192?style=for-the-badge&logo=postgresql)](https://www.postgresql.org/)
 [![TailwindCSS](https://img.shields.io/badge/Tailwind-3.0-38B2AC?style=for-the-badge&logo=tailwind-css)](https://tailwindcss.com/)
 
-[Live Demo](#) · [Report Bug](https://github.com/yourusername/vanshvriksh/issues) · [Request Feature](https://github.com/yourusername/vanshvriksh/issues)
+[Live Demo](#) · [Report Bug](https://github.com/vkotiyal/vanshvriksh/issues) · [Request Feature](https://github.com/vkotiyal/vanshvriksh/issues)
 
 </div>
 
@@ -121,7 +121,7 @@ This project demonstrates proficiency in:
 
 1. **Clone the repository**
    ```bash
-   git clone https://github.com/yourusername/vanshvriksh.git
+   git clone https://github.com/vkotiyal/vanshvriksh.git
    cd vanshvriksh
    ```
 
@@ -293,7 +293,7 @@ pnpm test:coverage
 3. Add environment variables
 4. Deploy!
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/yourusername/vanshvriksh)
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/vkotiyal/vanshvriksh)
 
 ### Manual Deployment
 
@@ -339,11 +339,11 @@ This project is licensed under the **MIT License** - see the [LICENSE](LICENSE) 
 
 ## 👨‍💻 Author
 
-**Your Name**
+Vaibhav Kotiyal
 
-- GitHub: [@yourusername](https://github.com/yourusername)
-- LinkedIn: [Your LinkedIn](https://linkedin.com/in/yourprofile)
-- Portfolio: [yourwebsite.com](https://yourwebsite.com)
+- GitHub: [@vkotiyal](https://github.com/vkotiyal)
+- LinkedIn: [Vaibhav Kotiyal](https://linkedin.com/in/vkotiyal)
+- Portfolio: [vaibhavkotiyal.com](https://vaibhavkotiyal.com)
 
 ---
 
@@ -361,6 +361,6 @@ This project is licensed under the **MIT License** - see the [LICENSE](LICENSE) 
 
 **⭐ Star this repo if you find it helpful!**
 
-Made with ❤️ and ☕ by [Your Name]
+Made with ❤️ and ☕ by Vaibhav Kotiyal
 
 </div>
