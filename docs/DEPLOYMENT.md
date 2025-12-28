@@ -16,6 +16,7 @@ This guide covers deploying VanshVriksh to production using Vercel.
 The project includes automated CI checks that run on every push and pull request:
 
 **Quality Checks (`.github/workflows/ci.yml`)**
+
 - ✅ ESLint - Code quality and best practices
 - ✅ Prettier - Code formatting consistency
 - ✅ TypeScript - Type safety verification
@@ -24,17 +25,15 @@ The project includes automated CI checks that run on every push and pull request
 
 **Workflow Status**
 
-View workflow runs at: `https://github.com/YOUR-USERNAME/vanshvriksh/actions`
+View workflow runs at: `https://github.com/vkotiyal/vanshvriksh/actions`
 
 ### Adding Status Badge to README
 
 Add this to your README.md:
 
 ```markdown
-[![CI](https://github.com/YOUR-USERNAME/vanshvriksh/actions/workflows/ci.yml/badge.svg)](https://github.com/YOUR-USERNAME/vanshvriksh/actions/workflows/ci.yml)
+[![CI](https://github.com/vkotiyal/vanshvriksh/actions/workflows/ci.yml/badge.svg)](https://github.com/vkotiyal/vanshvriksh/actions/workflows/ci.yml)
 ```
-
-Replace `YOUR-USERNAME` with your GitHub username.
 
 ## Deploying to Vercel
 
@@ -47,7 +46,7 @@ git add .
 git commit -m "chore: prepare for deployment"
 
 # Add remote and push
-git remote add origin https://github.com/YOUR-USERNAME/vanshvriksh.git
+git remote add origin https://github.com/vkotiyal/vanshvriksh.git
 git branch -M main
 git push -u origin main
 ```
@@ -100,6 +99,7 @@ CLOUDINARY_API_SECRET=your-api-secret
 ```
 
 **To add environment variables:**
+
 1. Go to **Project Settings** → **Environment Variables**
 2. Add each variable above
 3. Select **Production**, **Preview**, and **Development** environments
@@ -110,6 +110,7 @@ CLOUDINARY_API_SECRET=your-api-secret
 Click **Deploy** button.
 
 Vercel will:
+
 1. ✅ Install dependencies
 2. ✅ Run the build command
 3. ✅ Deploy to CDN
@@ -144,12 +145,14 @@ Run the Prisma schema against your production database using a database client.
 ## Automatic Deployments
 
 Vercel automatically deploys:
+
 - **Production**: Every push to `main` branch
 - **Preview**: Every push to other branches and PRs
 
 ### Preview Deployments
 
 Every PR gets a unique preview URL:
+
 - `https://vanshvriksh-git-feature-branch-username.vercel.app`
 - Perfect for testing before merging
 
@@ -183,6 +186,7 @@ Value: cname.vercel-dns.com
 ### Performance Monitoring
 
 Vercel provides:
+
 - **Analytics**: Page views, unique visitors
 - **Web Vitals**: Core Web Vitals metrics
 - **Real-time Logs**: Server function execution
@@ -208,6 +212,7 @@ Enable in: **Project Settings** → **Analytics**
 ### CORS and Headers
 
 Vercel automatically configures:
+
 - ✅ HTTPS enforcement
 - ✅ Security headers
 - ✅ CDN caching
@@ -225,6 +230,7 @@ If a deployment has issues:
 ### Vercel Edge Network
 
 Your app is deployed to Vercel's global CDN:
+
 - Static assets cached at edge
 - API routes run in serverless functions
 - Images optimized automatically
@@ -232,6 +238,7 @@ Your app is deployed to Vercel's global CDN:
 ### Monitoring Performance
 
 Check **Analytics** → **Web Vitals** for:
+
 - Largest Contentful Paint (LCP)
 - First Input Delay (FID)
 - Cumulative Layout Shift (CLS)
@@ -241,6 +248,7 @@ Target: All metrics in "Good" range
 ## Costs
 
 ### Free Tier Includes:
+
 - Unlimited deployments
 - 100 GB bandwidth/month
 - Serverless function execution
@@ -248,6 +256,7 @@ Target: All metrics in "Good" range
 - Preview deployments
 
 ### Paid Features (if needed):
+
 - **Pro Plan** ($20/month):
   - 1 TB bandwidth
   - Advanced analytics
@@ -263,6 +272,7 @@ Target: All metrics in "Good" range
 **Problem**: Build fails in Vercel
 
 **Solutions**:
+
 1. Check build logs for specific error
 2. Verify all environment variables are set
 3. Ensure `DATABASE_URL` is valid (can be dummy for build)
@@ -273,6 +283,7 @@ Target: All metrics in "Good" range
 **Problem**: Can't connect to database in production
 
 **Solutions**:
+
 1. Verify `DATABASE_URL` is correct
 2. Check database is accessible from internet
 3. Ensure SSL mode is correct
@@ -283,6 +294,7 @@ Target: All metrics in "Good" range
 **Problem**: App behavior different in production
 
 **Solutions**:
+
 1. Verify all env vars are set in Vercel
 2. Check env var names (case-sensitive)
 3. Re-deploy after changing env vars
@@ -293,6 +305,7 @@ Target: All metrics in "Good" range
 **Problem**: Pages return 404 in production
 
 **Solutions**:
+
 1. Check file names and paths (case-sensitive)
 2. Verify dynamic routes use correct syntax
 3. Clear Vercel cache and redeploy

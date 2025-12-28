@@ -11,14 +11,16 @@ By participating in this project, you agree to maintain a respectful and inclusi
 ### Reporting Bugs
 
 Before creating a bug report:
-1. Check the [existing issues](https://github.com/YOUR-USERNAME/vanshvriksh/issues) to avoid duplicates
+
+1. Check the [existing issues](https://github.com/vkotiyal/vanshvriksh/issues) to avoid duplicates
 2. Gather relevant information about the bug
 3. Create a detailed bug report using our [bug report template](.github/ISSUE_TEMPLATE/bug_report.md)
 
 ### Suggesting Features
 
 We welcome feature suggestions! Please:
-1. Check [existing feature requests](https://github.com/YOUR-USERNAME/vanshvriksh/issues?q=is%3Aissue+label%3Aenhancement)
+
+1. Check [existing feature requests](https://github.com/vkotiyal/vanshvriksh/issues?q=is%3Aissue+label%3Aenhancement)
 2. Use our [feature request template](.github/ISSUE_TEMPLATE/feature_request.md)
 3. Provide clear use cases and examples
 
@@ -33,7 +35,7 @@ We welcome feature suggestions! Please:
 2. **Clone your fork**
 
    ```bash
-   git clone https://github.com/YOUR-USERNAME/vanshvriksh.git
+   git clone https://github.com/vkotiyal/vanshvriksh.git
    cd vanshvriksh
    ```
 
@@ -91,7 +93,6 @@ We welcome feature suggestions! Please:
    - `perf/` - Performance improvements
 
 2. **Make your changes**
-
    - Write clean, readable code
    - Follow existing code style
    - Add comments for complex logic
@@ -145,7 +146,6 @@ We welcome feature suggestions! Please:
    ```
 
 6. **Create a Pull Request**
-
    - Go to the original repository
    - Click "New Pull Request"
    - Select your fork and branch
@@ -155,6 +155,7 @@ We welcome feature suggestions! Please:
 #### Pull Request Guidelines
 
 **Before submitting:**
+
 - [ ] Code follows project style guidelines
 - [ ] Self-reviewed the code
 - [ ] Added comments for complex code
@@ -166,6 +167,7 @@ We welcome feature suggestions! Please:
 **PR Title Format:**
 
 Use conventional commit format:
+
 ```
 feat: add export to PDF functionality
 fix: resolve tree rendering issue on mobile
@@ -282,6 +284,7 @@ If your contribution requires database changes:
 ## Testing
 
 While we don't have a full test suite yet, please:
+
 - Manually test all changes thoroughly
 - Test on multiple browsers (Chrome, Firefox, Safari)
 - Test responsive design on mobile/tablet/desktop
@@ -290,13 +293,14 @@ While we don't have a full test suite yet, please:
 
 ## Getting Help
 
-- **Questions**: Open a [GitHub Discussion](https://github.com/YOUR-USERNAME/vanshvriksh/discussions)
-- **Bugs**: Create an [Issue](https://github.com/YOUR-USERNAME/vanshvriksh/issues)
+- **Questions**: Open a [GitHub Discussion](https://github.com/vkotiyal/vanshvriksh/discussions)
+- **Bugs**: Create an [Issue](https://github.com/vkotiyal/vanshvriksh/issues)
 - **Chat**: Join our [Discord](#) (if available)
 
 ## Recognition
 
 Contributors will be:
+
 - Listed in README.md
 - Credited in release notes
 - Mentioned in relevant documentation
