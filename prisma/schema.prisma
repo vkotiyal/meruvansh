@@ -1,0 +1,87 @@
+// Prisma Schema for VanshVriksh Family Tree Platform
+// Database: PostgreSQL (Neon.tech)
+// ORM: Prisma 6.x
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// ============================================================================
+// User Model - Authentication & Account Management
+// ============================================================================
+
+model User {
+  id            String    @id @default(cuid())
+  email         String    @unique
+  password      String // Hashed with bcrypt
+  name          String?
+  emailVerified DateTime?
+  image         String?
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+
+  // Relations
+  tree Tree?
+
+  @@map("users")
+  @@index([email])
+}
+
+// ============================================================================
+// Tree Model - Family Tree Container
+// ============================================================================
+
+model Tree {
+  id        String   @id @default(cuid())
+  name      String
+  userId    String   @unique
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Relations
+  user  User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  nodes Node[]
+
+  @@map("trees")
+  @@index([userId])
+}
+
+// ============================================================================
+// Node Model - Family Tree Members (with recursive parent-child)
+// ============================================================================
+
+model Node {
+  id        String   @id @default(cuid())
+  treeId    String
+  parentId  String? // NULL for root nodes
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Personal Information
+  name           String
+  nickname       String?
+  email          String?
+  phone          String?
+  birthDate      DateTime? @db.Date
+  deathDate      DateTime? @db.Date
+  gender         String? // "male", "female", "other"
+  profilePicture String? // Cloudinary URL
+  address        String?
+  bio            String?   @db.Text
+
+  // Relations
+  tree     Tree   @relation(fields: [treeId], references: [id], onDelete: Cascade)
+  parent   Node?  @relation("NodeHierarchy", fields: [parentId], references: [id], onDelete: SetNull)
+  children Node[] @relation("NodeHierarchy")
+
+  @@map("nodes")
+  @@index([treeId])
+  @@index([parentId])
+  @@index([email])
+  @@index([name])
+}
