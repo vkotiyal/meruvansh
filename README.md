@@ -6,11 +6,13 @@
 
 **A modern, secure, and intuitive family tree management platform built with Next.js 14**
 
+[![CI](https://github.com/vkotiyal/vanshvriksh/actions/workflows/ci.yml/badge.svg)](https://github.com/vkotiyal/vanshvriksh/actions/workflows/ci.yml)
 [![Next.js](https://img.shields.io/badge/Next.js-14-black?style=for-the-badge&logo=next.js)](https://nextjs.org/)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.0-blue?style=for-the-badge&logo=typescript)](https://www.typescriptlang.org/)
 [![Prisma](https://img.shields.io/badge/Prisma-5.0-2D3748?style=for-the-badge&logo=prisma)](https://www.prisma.io/)
 [![PostgreSQL](https://img.shields.io/badge/PostgreSQL-16-316192?style=for-the-badge&logo=postgresql)](https://www.postgresql.org/)
 [![TailwindCSS](https://img.shields.io/badge/Tailwind-3.0-38B2AC?style=for-the-badge&logo=tailwind-css)](https://tailwindcss.com/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=for-the-badge)](https://opensource.org/licenses/MIT)
 
 [Live Demo](#) · [Report Bug](https://github.com/vkotiyal/vanshvriksh/issues) · [Request Feature](https://github.com/vkotiyal/vanshvriksh/issues)
 
@@ -309,25 +311,24 @@ pnpm start
 
 ## 🤝 Contributing
 
-Contributions are welcome! Please follow these guidelines:
+Contributions are welcome! We appreciate all contributions, from bug reports to new features.
+
+**Please read our [Contributing Guidelines](.github/CONTRIBUTING.md) before getting started.**
+
+### Quick Start for Contributors
 
 1. Fork the repository
 2. Create a feature branch (`git checkout -b feature/amazing-feature`)
 3. Commit changes using [Conventional Commits](https://www.conventionalcommits.org/)
 4. Push to the branch (`git push origin feature/amazing-feature`)
-5. Open a Pull Request
+5. Open a Pull Request using our [PR template](.github/pull_request_template.md)
 
-### Commit Message Convention
+### Useful Links
 
-```
-feat: add new feature
-fix: bug fix
-docs: documentation changes
-style: code formatting
-refactor: code refactoring
-test: add tests
-chore: maintenance tasks
-```
+- [Contributing Guide](.github/CONTRIBUTING.md) - Detailed contribution instructions
+- [Code of Conduct](.github/CONTRIBUTING.md#code-of-conduct)
+- [Development Setup](.github/CONTRIBUTING.md#development-setup)
+- [Security Policy](.github/SECURITY.md)
 
 ---
 
