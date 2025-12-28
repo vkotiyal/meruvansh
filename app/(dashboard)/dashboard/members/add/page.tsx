@@ -22,6 +22,7 @@ import {
 } from "@/components/ui/select"
 import { ArrowLeft } from "lucide-react"
 import Link from "next/link"
+import { ImageUpload } from "@/components/image-upload"
 
 interface Node {
   id: string
@@ -45,6 +46,7 @@ export default function AddMemberPage() {
     address: "",
     bio: "",
     parentId: "",
+    profilePicture: "",
   })
 
   useEffect(() => {
@@ -130,6 +132,15 @@ export default function AddMemberPage() {
         <CardContent>
           <form onSubmit={handleSubmit} className="space-y-6">
             {error && <div className="rounded-md bg-red-50 p-3 text-sm text-red-500">{error}</div>}
+
+            <div className="space-y-2">
+              <Label>Profile Picture</Label>
+              <ImageUpload
+                value={formData.profilePicture}
+                onChange={(url) => setFormData((prev) => ({ ...prev, profilePicture: url }))}
+                onRemove={() => setFormData((prev) => ({ ...prev, profilePicture: "" }))}
+              />
+            </div>
 
             <div className="grid gap-6 md:grid-cols-2">
               <div className="space-y-2">

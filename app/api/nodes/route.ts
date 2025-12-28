@@ -41,7 +41,7 @@ export async function POST(request: Request) {
     }
 
     const body = await request.json()
-    const { name, nickname, email, phone, birthDate, gender, address, bio, parentId } = body
+    const { name, nickname, email, phone, birthDate, gender, address, bio, parentId, profilePicture } = body
 
     // Validation
     if (!name) {
@@ -70,6 +70,7 @@ export async function POST(request: Request) {
         address,
         bio,
         parentId: parentId || null,
+        profilePicture: profilePicture || null,
       },
     })
 
