@@ -48,8 +48,19 @@ export async function PUT(request: Request, { params }: { params: { id: string }
     }
 
     const body = await request.json()
-    const { name, nickname, email, phone, birthDate, deathDate, gender, address, bio, profilePicture } =
-      body
+    const {
+      name,
+      nickname,
+      email,
+      phone,
+      birthDate,
+      deathDate,
+      gender,
+      address,
+      bio,
+      profilePicture,
+      parentId,
+    } = body
 
     // Get node
     const existingNode = await prisma.node.findUnique({
@@ -80,6 +91,7 @@ export async function PUT(request: Request, { params }: { params: { id: string }
         address,
         bio,
         profilePicture,
+        parentId: parentId || null,
       },
     })
 

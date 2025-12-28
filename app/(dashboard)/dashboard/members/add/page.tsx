@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { useRouter } from "next/navigation"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
@@ -23,10 +23,18 @@ import {
 import { ArrowLeft } from "lucide-react"
 import Link from "next/link"
 
+interface Node {
+  id: string
+  name: string
+  nickname?: string | null
+}
+
 export default function AddMemberPage() {
   const router = useRouter()
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState("")
+  const [nodes, setNodes] = useState<Node[]>([])
+  const [fetchingNodes, setFetchingNodes] = useState(true)
   const [formData, setFormData] = useState({
     name: "",
     nickname: "",
@@ -36,7 +44,25 @@ export default function AddMemberPage() {
     gender: "",
     address: "",
     bio: "",
+    parentId: "",
   })
+
+  useEffect(() => {
+    fetchNodes()
+  }, [])
+
+  const fetchNodes = async () => {
+    try {
+      const response = await fetch("/api/nodes")
+      if (!response.ok) throw new Error("Failed to fetch nodes")
+      const data = await response.json()
+      setNodes(data.nodes || [])
+    } catch (error) {
+      console.error("Failed to load family members:", error)
+    } finally {
+      setFetchingNodes(false)
+    }
+  }
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setFormData((prev) => ({
@@ -51,12 +77,18 @@ export default function AddMemberPage() {
     setLoading(true)
 
     try {
+      // Prepare data - convert empty parentId to null
+      const submitData = {
+        ...formData,
+        parentId: formData.parentId || null,
+      }
+
       const response = await fetch("/api/nodes", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(formData),
+        body: JSON.stringify(submitData),
       })
 
       const data = await response.json()
@@ -171,6 +203,28 @@ export default function AddMemberPage() {
                     <SelectItem value="male">Male</SelectItem>
                     <SelectItem value="female">Female</SelectItem>
                     <SelectItem value="other">Other</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+
+              <div className="space-y-2">
+                <Label htmlFor="parent">Parent</Label>
+                <Select
+                  value={formData.parentId}
+                  onValueChange={(value) => setFormData((prev) => ({ ...prev, parentId: value }))}
+                  disabled={fetchingNodes}
+                >
+                  <SelectTrigger>
+                    <SelectValue placeholder={fetchingNodes ? "Loading..." : "None (Root member)"} />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="">None (Root member)</SelectItem>
+                    {nodes.map((node) => (
+                      <SelectItem key={node.id} value={node.id}>
+                        {node.name}
+                        {node.nickname && ` "${node.nickname}"`}
+                      </SelectItem>
+                    ))}
                   </SelectContent>
                 </Select>
               </div>

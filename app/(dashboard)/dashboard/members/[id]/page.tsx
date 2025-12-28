@@ -23,11 +23,19 @@ import {
 import { ArrowLeft } from "lucide-react"
 import Link from "next/link"
 
+interface Node {
+  id: string
+  name: string
+  nickname?: string | null
+}
+
 export default function EditMemberPage({ params }: { params: { id: string } }) {
   const router = useRouter()
   const [loading, setLoading] = useState(false)
   const [fetchLoading, setFetchLoading] = useState(true)
   const [error, setError] = useState("")
+  const [nodes, setNodes] = useState<Node[]>([])
+  const [fetchingNodes, setFetchingNodes] = useState(true)
   const [formData, setFormData] = useState({
     name: "",
     nickname: "",
@@ -37,10 +45,12 @@ export default function EditMemberPage({ params }: { params: { id: string } }) {
     gender: "",
     address: "",
     bio: "",
+    parentId: "",
   })
 
   useEffect(() => {
     fetchNode()
+    fetchNodes()
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [params.id])
 
@@ -59,11 +69,27 @@ export default function EditMemberPage({ params }: { params: { id: string } }) {
         gender: data.node.gender || "",
         address: data.node.address || "",
         bio: data.node.bio || "",
+        parentId: data.node.parentId || "",
       })
     } catch (error) {
       setError("Failed to load member data")
     } finally {
       setFetchLoading(false)
+    }
+  }
+
+  const fetchNodes = async () => {
+    try {
+      const response = await fetch("/api/nodes")
+      if (!response.ok) throw new Error("Failed to fetch nodes")
+      const data = await response.json()
+      // Filter out the current node and its descendants to prevent circular relationships
+      const availableNodes = data.nodes.filter((node: Node) => node.id !== params.id)
+      setNodes(availableNodes)
+    } catch (error) {
+      console.error("Failed to load family members:", error)
+    } finally {
+      setFetchingNodes(false)
     }
   }
 
@@ -80,12 +106,18 @@ export default function EditMemberPage({ params }: { params: { id: string } }) {
     setLoading(true)
 
     try {
+      // Prepare data - convert empty parentId to null
+      const submitData = {
+        ...formData,
+        parentId: formData.parentId || null,
+      }
+
       const response = await fetch(`/api/nodes/${params.id}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(formData),
+        body: JSON.stringify(submitData),
       })
 
       const data = await response.json()
@@ -200,6 +232,28 @@ export default function EditMemberPage({ params }: { params: { id: string } }) {
                     <SelectItem value="male">Male</SelectItem>
                     <SelectItem value="female">Female</SelectItem>
                     <SelectItem value="other">Other</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+
+              <div className="space-y-2">
+                <Label htmlFor="parent">Parent</Label>
+                <Select
+                  value={formData.parentId}
+                  onValueChange={(value) => setFormData((prev) => ({ ...prev, parentId: value }))}
+                  disabled={fetchingNodes}
+                >
+                  <SelectTrigger>
+                    <SelectValue placeholder={fetchingNodes ? "Loading..." : "None (Root member)"} />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="">None (Root member)</SelectItem>
+                    {nodes.map((node) => (
+                      <SelectItem key={node.id} value={node.id}>
+                        {node.name}
+                        {node.nickname && ` "${node.nickname}"`}
+                      </SelectItem>
+                    ))}
                   </SelectContent>
                 </Select>
               </div>
