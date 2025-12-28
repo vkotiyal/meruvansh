@@ -39,7 +39,7 @@ export function DeleteButton({ nodeId, hasChildren }: DeleteButtonProps) {
       }
 
       router.refresh()
-    } catch (error) {
+    } catch {
       alert("Something went wrong")
     } finally {
       setLoading(false)

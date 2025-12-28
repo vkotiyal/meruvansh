@@ -46,7 +46,7 @@ export default function SignupPage() {
 
       // Redirect to login with success message
       router.push("/login?signup=success")
-    } catch (error) {
+    } catch {
       setError("Something went wrong")
     } finally {
       setLoading(false)

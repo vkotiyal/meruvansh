@@ -59,8 +59,8 @@ export default function AddMemberPage() {
       if (!response.ok) throw new Error("Failed to fetch nodes")
       const data = await response.json()
       setNodes(data.nodes || [])
-    } catch (error) {
-      console.error("Failed to load family members:", error)
+    } catch (_error) {
+      console.error("Failed to load family members:", _error)
     } finally {
       setFetchingNodes(false)
     }
@@ -102,7 +102,7 @@ export default function AddMemberPage() {
 
       router.push("/dashboard/members")
       router.refresh()
-    } catch (error) {
+    } catch {
       setError("Something went wrong")
     } finally {
       setLoading(false)

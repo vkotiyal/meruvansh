@@ -74,7 +74,7 @@ export default function EditMemberPage({ params }: { params: { id: string } }) {
         parentId: data.node.parentId || "none",
         profilePicture: data.node.profilePicture || "",
       })
-    } catch (error) {
+    } catch {
       setError("Failed to load member data")
     } finally {
       setFetchLoading(false)
@@ -89,8 +89,8 @@ export default function EditMemberPage({ params }: { params: { id: string } }) {
       // Filter out the current node and its descendants to prevent circular relationships
       const availableNodes = data.nodes.filter((node: Node) => node.id !== params.id)
       setNodes(availableNodes)
-    } catch (error) {
-      console.error("Failed to load family members:", error)
+    } catch (_error) {
+      console.error("Failed to load family members:", _error)
     } finally {
       setFetchingNodes(false)
     }
@@ -132,7 +132,7 @@ export default function EditMemberPage({ params }: { params: { id: string } }) {
 
       router.push("/dashboard/members")
       router.refresh()
-    } catch (error) {
+    } catch {
       setError("Something went wrong")
     } finally {
       setLoading(false)

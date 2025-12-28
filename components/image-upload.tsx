@@ -41,8 +41,10 @@ export function ImageUpload({ value, onChange, onRemove }: ImageUploadProps) {
 
         <CldUploadWidget
           uploadPreset={process.env.NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET}
-          onSuccess={(result: any) => {
-            onChange(result.info.secure_url)
+          onSuccess={(result) => {
+            if (typeof result.info === "object" && result.info && "secure_url" in result.info) {
+              onChange(result.info.secure_url)
+            }
           }}
         >
           {({ open }) => (
