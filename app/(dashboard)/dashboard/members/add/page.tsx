@@ -45,7 +45,7 @@ export default function AddMemberPage() {
     gender: "",
     address: "",
     bio: "",
-    parentId: "",
+    parentId: "none",
     profilePicture: "",
   })
 
@@ -79,10 +79,10 @@ export default function AddMemberPage() {
     setLoading(true)
 
     try {
-      // Prepare data - convert empty parentId to null
+      // Prepare data - convert "none" or empty parentId to null
       const submitData = {
         ...formData,
-        parentId: formData.parentId || null,
+        parentId: formData.parentId && formData.parentId !== "none" ? formData.parentId : null,
       }
 
       const response = await fetch("/api/nodes", {
@@ -229,7 +229,7 @@ export default function AddMemberPage() {
                     <SelectValue placeholder={fetchingNodes ? "Loading..." : "None (Root member)"} />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="">None (Root member)</SelectItem>
+                    <SelectItem value="none">None (Root member)</SelectItem>
                     {nodes.map((node) => (
                       <SelectItem key={node.id} value={node.id}>
                         {node.name}

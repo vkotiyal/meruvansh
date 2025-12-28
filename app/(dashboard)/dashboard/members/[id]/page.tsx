@@ -71,7 +71,7 @@ export default function EditMemberPage({ params }: { params: { id: string } }) {
         gender: data.node.gender || "",
         address: data.node.address || "",
         bio: data.node.bio || "",
-        parentId: data.node.parentId || "",
+        parentId: data.node.parentId || "none",
         profilePicture: data.node.profilePicture || "",
       })
     } catch (error) {
@@ -109,10 +109,10 @@ export default function EditMemberPage({ params }: { params: { id: string } }) {
     setLoading(true)
 
     try {
-      // Prepare data - convert empty parentId to null
+      // Prepare data - convert "none" or empty parentId to null
       const submitData = {
         ...formData,
-        parentId: formData.parentId || null,
+        parentId: formData.parentId && formData.parentId !== "none" ? formData.parentId : null,
       }
 
       const response = await fetch(`/api/nodes/${params.id}`, {
@@ -259,7 +259,7 @@ export default function EditMemberPage({ params }: { params: { id: string } }) {
                     <SelectValue placeholder={fetchingNodes ? "Loading..." : "None (Root member)"} />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="">None (Root member)</SelectItem>
+                    <SelectItem value="none">None (Root member)</SelectItem>
                     {nodes.map((node) => (
                       <SelectItem key={node.id} value={node.id}>
                         {node.name}
