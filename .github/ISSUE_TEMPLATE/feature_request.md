@@ -33,7 +33,7 @@ Describe any alternative solutions or features you've considered.
 - [ ] Genealogists
 - [ ] Casual users
 - [ ] Administrators
-- [ ] Other: ****\_\_\_****
+- [ ] Other: \***\*\_\_\_\*\***
 
 **How would they use it?**
 
