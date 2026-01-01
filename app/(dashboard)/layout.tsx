@@ -5,11 +5,7 @@ import Link from "next/link"
 import { TreePine, Users, LogOut } from "lucide-react"
 import { Button } from "@/components/ui/button"
 
-export default async function DashboardLayout({
-  children,
-}: {
-  children: React.ReactNode
-}) {
+export default async function DashboardLayout({ children }: { children: React.ReactNode }) {
   const session = await getServerSession(authOptions)
 
   if (!session) {

@@ -72,7 +72,9 @@ export default async function MembersPage() {
                   </Avatar>
                   <div className="min-w-0 flex-1">
                     <h3 className="truncate text-lg font-semibold">{node.name}</h3>
-                    {node.nickname && <p className="text-sm text-gray-500">&quot;{node.nickname}&quot;</p>}
+                    {node.nickname && (
+                      <p className="text-sm text-gray-500">&quot;{node.nickname}&quot;</p>
+                    )}
                     {node.email && <p className="truncate text-sm text-gray-600">{node.email}</p>}
                     {node.parent && (
                       <p className="mt-1 text-xs text-gray-500">Child of {node.parent.name}</p>

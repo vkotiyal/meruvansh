@@ -40,12 +40,14 @@
 ### Why This Project?
 
 Family trees are complex graph data structures that present unique challenges:
+
 - **Recursive relationships**: Parent-child hierarchies with unlimited depth
 - **Data integrity**: Preventing circular references and orphaned nodes
 - **Visualization**: Rendering large trees with thousands of nodes performantly
 - **Access control**: Managing who can view and edit family information
 
 This project demonstrates proficiency in:
+
 - ✅ Full-stack TypeScript development
 - ✅ Complex database schema design (recursive relationships)
 - ✅ Authentication & authorization
@@ -58,6 +60,7 @@ This project demonstrates proficiency in:
 ## ✨ Features
 
 ### Core Functionality
+
 - 🔐 **Secure Authentication** - Email/password with NextAuth.js
 - 👤 **User Profiles** - Customizable user accounts
 - 🌲 **Family Tree Creation** - Add, edit, and organize family members
@@ -67,6 +70,7 @@ This project demonstrates proficiency in:
 - 📱 **Responsive Design** - Works on desktop, tablet, and mobile
 
 ### Technical Features
+
 - ⚡ **Server-Side Rendering (SSR)** - Fast initial page loads
 - 🎨 **Modern UI Components** - Shadcn/ui + Radix UI
 - 🔒 **Type-Safe API** - End-to-end TypeScript
@@ -80,6 +84,7 @@ This project demonstrates proficiency in:
 ## 🛠️ Tech Stack
 
 ### Frontend
+
 - **Framework**: [Next.js 14](https://nextjs.org/) (App Router)
 - **Language**: [TypeScript](https://www.typescriptlang.org/)
 - **Styling**: [Tailwind CSS](https://tailwindcss.com/)
@@ -89,6 +94,7 @@ This project demonstrates proficiency in:
 - **Forms**: [React Hook Form](https://react-hook-form.com/) + [Zod](https://zod.dev/)
 
 ### Backend
+
 - **Runtime**: [Node.js 20 LTS](https://nodejs.org/)
 - **API**: Next.js API Routes
 - **Authentication**: [NextAuth.js](https://next-auth.js.org/)
@@ -96,10 +102,12 @@ This project demonstrates proficiency in:
 - **Validation**: [Zod](https://zod.dev/)
 
 ### Database & Storage
+
 - **Database**: [PostgreSQL 16](https://www.postgresql.org/) (Neon.tech)
 - **Image Storage**: [Cloudinary](https://cloudinary.com/)
 
 ### DevOps & Tools
+
 - **Deployment**: [Vercel](https://vercel.com/)
 - **CI/CD**: [GitHub Actions](https://github.com/features/actions)
 - **Version Control**: Git + GitHub
@@ -122,17 +130,20 @@ This project demonstrates proficiency in:
 ### Installation
 
 1. **Clone the repository**
+
    ```bash
    git clone https://github.com/vkotiyal/vanshvriksh.git
    cd vanshvriksh
    ```
 
 2. **Install dependencies**
+
    ```bash
    pnpm install
    ```
 
 3. **Set up environment variables**
+
    ```bash
    cp .env.example .env.local
    ```
@@ -144,12 +155,14 @@ This project demonstrates proficiency in:
    - Other Cloudinary credentials
 
 4. **Initialize the database**
+
    ```bash
    pnpm prisma generate
    pnpm prisma db push
    ```
 
 5. **Run the development server**
+
    ```bash
    pnpm dev
    ```

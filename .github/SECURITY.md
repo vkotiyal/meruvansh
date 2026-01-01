@@ -21,6 +21,7 @@ Please do not create a public GitHub issue for security vulnerabilities.
 Send a detailed report to: **security@vaibhavkotiyal.com** (or your preferred contact)
 
 Include:
+
 - Description of the vulnerability
 - Steps to reproduce
 - Potential impact
@@ -37,24 +38,28 @@ Include:
 VanshVriksh implements the following security practices:
 
 ### Authentication & Authorization
+
 - ✅ Passwords hashed with bcrypt (10 rounds)
 - ✅ JWT-based session management
 - ✅ Server-side session validation on protected routes
 - ✅ CSRF protection via NextAuth.js
 
 ### Data Protection
+
 - ✅ SQL injection prevention (Prisma ORM with parameterized queries)
 - ✅ XSS protection (React automatic escaping)
 - ✅ Environment variables for sensitive data
 - ✅ HTTPS enforcement in production
 
 ### API Security
+
 - ✅ Authentication required for all data operations
 - ✅ User-owned data verification
 - ✅ Input validation on all endpoints
 - ✅ Rate limiting (Vercel automatic DDoS protection)
 
 ### Dependencies
+
 - ✅ Regular dependency updates
 - ✅ Automated security scanning (GitHub Dependabot)
 - ✅ Dependency review on pull requests
@@ -64,11 +69,13 @@ VanshVriksh implements the following security practices:
 ### Development vs Production
 
 **Development Mode:**
+
 - Local PostgreSQL database
 - Self-signed certificates acceptable
 - Debug logging enabled
 
 **Production Mode:**
+
 - Always use HTTPS
 - Secure database connection strings
 - Minimal logging (no sensitive data)
@@ -76,6 +83,7 @@ VanshVriksh implements the following security practices:
 ### User Responsibilities
 
 Users should:
+
 - Use strong passwords (min 8 characters)
 - Keep credentials confidential
 - Report suspicious activity
@@ -86,6 +94,7 @@ Users should:
 ### Environment Variables
 
 **Never commit:**
+
 ```
 .env
 .env.local
@@ -93,6 +102,7 @@ Users should:
 ```
 
 **Always:**
+
 - Use Vercel's encrypted environment variables
 - Rotate `NEXTAUTH_SECRET` periodically
 - Use strong database passwords
@@ -124,6 +134,7 @@ We follow responsible disclosure:
 ## Security Updates
 
 Security patches will be released as:
+
 - Patch version bumps (e.g., 0.1.1 → 0.1.2)
 - Tagged as security releases
 - Documented in CHANGELOG.md
@@ -131,6 +142,7 @@ Security patches will be released as:
 ## Attribution
 
 We appreciate security researchers who help make VanshVriksh safer. With your permission, we'll acknowledge your contribution in:
+
 - Security advisory
 - Release notes
 - README.md security section

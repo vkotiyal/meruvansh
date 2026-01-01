@@ -57,9 +57,7 @@ export default function LoginPage() {
         </CardHeader>
         <form onSubmit={handleSubmit}>
           <CardContent className="space-y-4">
-            {error && (
-              <div className="rounded-md bg-red-50 p-3 text-sm text-red-500">{error}</div>
-            )}
+            {error && <div className="rounded-md bg-red-50 p-3 text-sm text-red-500">{error}</div>}
             <div className="space-y-2">
               <Label htmlFor="email">Email</Label>
               <Input

@@ -1,9 +1,9 @@
 ---
 name: Feature Request
 about: Suggest an idea for this project
-title: '[FEATURE] '
+title: "[FEATURE] "
 labels: enhancement
-assignees: ''
+assignees: ""
 ---
 
 ## Feature Description
@@ -33,7 +33,7 @@ Describe any alternative solutions or features you've considered.
 - [ ] Genealogists
 - [ ] Casual users
 - [ ] Administrators
-- [ ] Other: ___________
+- [ ] Other: ****\_\_\_****
 
 **How would they use it?**
 
@@ -50,6 +50,7 @@ Provide examples of similar features in other family tree applications or websit
 **Potential implementation approach:**
 
 If you have technical suggestions, describe them here:
+
 - Database changes needed
 - API endpoints required
 - UI/UX changes

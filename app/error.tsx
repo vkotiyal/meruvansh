@@ -39,9 +39,7 @@ export default function Error({
           <p className="mt-2 text-sm text-gray-600">
             We apologize for the inconvenience. An error occurred while loading this page.
           </p>
-          {error.digest && (
-            <p className="mt-2 text-xs text-gray-500">Error ID: {error.digest}</p>
-          )}
+          {error.digest && <p className="mt-2 text-xs text-gray-500">Error ID: {error.digest}</p>}
           <div className="mt-6 flex flex-col gap-3">
             <Button onClick={reset} className="w-full">
               Try again

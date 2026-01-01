@@ -6,13 +6,7 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Textarea } from "@/components/ui/textarea"
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card"
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import {
   Select,
   SelectContent,
@@ -256,7 +250,9 @@ export default function EditMemberPage({ params }: { params: { id: string } }) {
                   disabled={fetchingNodes}
                 >
                   <SelectTrigger>
-                    <SelectValue placeholder={fetchingNodes ? "Loading..." : "None (Root member)"} />
+                    <SelectValue
+                      placeholder={fetchingNodes ? "Loading..." : "None (Root member)"}
+                    />
                   </SelectTrigger>
                   <SelectContent>
                     <SelectItem value="none">None (Root member)</SelectItem>
@@ -273,12 +269,7 @@ export default function EditMemberPage({ params }: { params: { id: string } }) {
 
             <div className="space-y-2">
               <Label htmlFor="address">Address</Label>
-              <Input
-                id="address"
-                name="address"
-                value={formData.address}
-                onChange={handleChange}
-              />
+              <Input id="address" name="address" value={formData.address} onChange={handleChange} />
             </div>
 
             <div className="space-y-2">

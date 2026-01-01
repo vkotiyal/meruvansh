@@ -1,9 +1,9 @@
 ---
 name: Bug Report
 about: Create a report to help us improve
-title: '[BUG] '
+title: "[BUG] "
 labels: bug
-assignees: ''
+assignees: ""
 ---
 
 ## Bug Description
@@ -32,16 +32,19 @@ If applicable, add screenshots to help explain your problem.
 ## Environment
 
 **Desktop:**
+
 - OS: [e.g., macOS, Windows, Linux]
 - Browser: [e.g., Chrome, Safari, Firefox]
 - Version: [e.g., 120]
 
 **Mobile:**
+
 - Device: [e.g., iPhone 13, Samsung Galaxy S21]
 - OS: [e.g., iOS 17, Android 13]
 - Browser: [e.g., Safari, Chrome]
 
 **Application:**
+
 - Version: [e.g., 0.1.0]
 - Environment: [e.g., Production, Development]
 

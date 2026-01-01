@@ -5,6 +5,7 @@ This guide will help you configure Cloudinary for profile picture uploads in Van
 ## Why Cloudinary?
 
 Cloudinary provides:
+
 - Free tier with generous limits (25 GB storage, 25 GB bandwidth/month)
 - Automatic image optimization and transformations
 - CDN delivery for fast loading
@@ -56,6 +57,7 @@ CLOUDINARY_API_SECRET="your-api-secret"
 ```
 
 Replace:
+
 - `your-cloud-name` with your Cloud Name from step 2
 - `vanshvriksh-profiles` with your upload preset name from step 3
 - `your-api-key` with your API Key from step 2
@@ -102,6 +104,7 @@ Transformation: c_limit,w_800,h_800,q_auto:good
 **Problem**: Upload button doesn't open widget
 
 **Solutions**:
+
 1. Check browser console for errors
 2. Verify `NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET` is set correctly
 3. Ensure upload preset is set to "Unsigned" mode
@@ -112,6 +115,7 @@ Transformation: c_limit,w_800,h_800,q_auto:good
 **Problem**: Uploaded images don't display
 
 **Solutions**:
+
 1. Check `next.config.mjs` includes Cloudinary domain:
    ```js
    images: {
@@ -131,6 +135,7 @@ Transformation: c_limit,w_800,h_800,q_auto:good
 **Problem**: Error when trying to upload
 
 **Solutions**:
+
 1. Verify upload preset name matches exactly (case-sensitive)
 2. Ensure upload preset is set to "Unsigned" mode
 3. Check you're using the correct Cloudinary cloud name
@@ -138,6 +143,7 @@ Transformation: c_limit,w_800,h_800,q_auto:good
 ## Free Tier Limits
 
 Cloudinary Free Plan includes:
+
 - **Storage**: 25 GB
 - **Bandwidth**: 25 GB/month
 - **Transformations**: 25,000/month
@@ -154,6 +160,7 @@ If you prefer not to use Cloudinary, you can implement local file storage:
 3. Save relative paths to database
 
 This approach is simpler but:
+
 - No CDN (slower loading for users far from your server)
 - No automatic image optimization
 - Manual backup required

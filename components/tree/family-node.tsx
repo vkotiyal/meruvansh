@@ -36,9 +36,7 @@ export function FamilyNode({ data }: { data: FamilyNodeData }) {
               <p className="truncate text-sm text-gray-500">&quot;{data.nickname}&quot;</p>
             )}
             {data.birthDate && (
-              <p className="text-xs text-gray-400">
-                {new Date(data.birthDate).getFullYear()}
-              </p>
+              <p className="text-xs text-gray-400">{new Date(data.birthDate).getFullYear()}</p>
             )}
           </div>
         </div>

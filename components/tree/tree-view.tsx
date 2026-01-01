@@ -42,11 +42,7 @@ export function TreeView({ nodes }: TreeViewProps) {
     const positions = new Map<string, { x: number; y: number }>()
     const levelWidth = new Map<number, number>()
 
-    function calculatePositions(
-      nodeId: string,
-      level: number = 0,
-      offset: number = 0
-    ): number {
+    function calculatePositions(nodeId: string, level: number = 0, offset: number = 0): number {
       const node = nodeMap.get(nodeId)
       if (!node) return 0
 
