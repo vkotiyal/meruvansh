@@ -8,12 +8,5 @@
     "deploymentEnabled": {
       "main": true
     }
-  },
-  "env": {
-    "DATABASE_URL": "@database_url",
-    "NEXTAUTH_URL": "@nextauth_url",
-    "NEXTAUTH_SECRET": "@nextauth_secret",
-    "NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME": "@cloudinary_cloud_name",
-    "NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET": "@cloudinary_upload_preset"
   }
 }
