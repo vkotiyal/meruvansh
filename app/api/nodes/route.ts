@@ -2,6 +2,7 @@ import { NextResponse } from "next/server"
 import { getServerSession } from "next-auth"
 import { authOptions } from "@/lib/auth"
 import { prisma } from "@/lib/prisma"
+import { isAdmin } from "@/lib/authorization"
 
 // GET all nodes for user's tree
 export async function GET() {
@@ -11,9 +12,9 @@ export async function GET() {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 })
     }
 
-    // Get user's tree
+    // Get tree using treeId from session (works for both admin and viewer)
     const tree = await prisma.tree.findUnique({
-      where: { userId: session.user.id },
+      where: { id: session.user.treeId },
       include: {
         nodes: {
           orderBy: { createdAt: "asc" },
@@ -40,6 +41,14 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 })
     }
 
+    // Check if user is admin (only admins can create nodes)
+    if (!isAdmin(session)) {
+      return NextResponse.json(
+        { error: "Only administrators can modify the tree" },
+        { status: 403 }
+      )
+    }
+
     const body = await request.json()
     const {
       name,
@@ -59,9 +68,9 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: "Name is required" }, { status: 400 })
     }
 
-    // Get user's tree
+    // Get tree using treeId from session
     const tree = await prisma.tree.findUnique({
-      where: { userId: session.user.id },
+      where: { id: session.user.treeId },
     })
 
     if (!tree) {

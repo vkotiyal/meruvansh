@@ -2,6 +2,7 @@ import { NextResponse } from "next/server"
 import { getServerSession } from "next-auth"
 import { authOptions } from "@/lib/auth"
 import { prisma } from "@/lib/prisma"
+import { isAdmin, canViewTree } from "@/lib/authorization"
 
 // GET single node
 export async function GET(_request: Request, { params }: { params: { id: string } }) {
@@ -23,12 +24,8 @@ export async function GET(_request: Request, { params }: { params: { id: string 
       return NextResponse.json({ error: "Node not found" }, { status: 404 })
     }
 
-    // Verify user owns this tree
-    const tree = await prisma.tree.findUnique({
-      where: { id: node.treeId },
-    })
-
-    if (tree?.userId !== session.user.id) {
+    // Verify user can view this tree (works for both admin and viewer)
+    if (!canViewTree(session, node.treeId)) {
       return NextResponse.json({ error: "Forbidden" }, { status: 403 })
     }
 
@@ -45,6 +42,14 @@ export async function PUT(request: Request, { params }: { params: { id: string }
     const session = await getServerSession(authOptions)
     if (!session) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 })
+    }
+
+    // Check if user is admin (only admins can update nodes)
+    if (!isAdmin(session)) {
+      return NextResponse.json(
+        { error: "Only administrators can modify the tree" },
+        { status: 403 }
+      )
     }
 
     const body = await request.json()
@@ -65,15 +70,14 @@ export async function PUT(request: Request, { params }: { params: { id: string }
     // Get node
     const existingNode = await prisma.node.findUnique({
       where: { id: params.id },
-      include: { tree: true },
     })
 
     if (!existingNode) {
       return NextResponse.json({ error: "Node not found" }, { status: 404 })
     }
 
-    // Verify user owns this tree
-    if (existingNode.tree.userId !== session.user.id) {
+    // Verify user can access this tree
+    if (!canViewTree(session, existingNode.treeId)) {
       return NextResponse.json({ error: "Forbidden" }, { status: 403 })
     }
 
@@ -110,18 +114,26 @@ export async function DELETE(_request: Request, { params }: { params: { id: stri
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 })
     }
 
+    // Check if user is admin (only admins can delete nodes)
+    if (!isAdmin(session)) {
+      return NextResponse.json(
+        { error: "Only administrators can modify the tree" },
+        { status: 403 }
+      )
+    }
+
     // Get node
     const node = await prisma.node.findUnique({
       where: { id: params.id },
-      include: { tree: true, children: true },
+      include: { children: true },
     })
 
     if (!node) {
       return NextResponse.json({ error: "Node not found" }, { status: 404 })
     }
 
-    // Verify user owns this tree
-    if (node.tree.userId !== session.user.id) {
+    // Verify user can access this tree
+    if (!canViewTree(session, node.treeId)) {
       return NextResponse.json({ error: "Forbidden" }, { status: 403 })
     }
 
