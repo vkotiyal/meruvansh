@@ -96,18 +96,27 @@ function validateEnv(): Env {
  */
 export const env = validateEnv()
 
+// Track if we've already logged to prevent duplicate output
+let hasLoggedEnvInfo = false
+
 /**
  * Log environment info on server startup (no sensitive data)
+ * Only logs once and only in development mode
  */
 function logEnvironmentInfo(): void {
-  // Only log on server-side and in development
+  // Skip if: already logged, client-side, or production/build
+  if (hasLoggedEnvInfo) return
   if (typeof window !== "undefined") return
+  if (process.env.NODE_ENV !== "development") return
+
+  hasLoggedEnvInfo = true
 
   try {
     const dbHost = new URL(env.DATABASE_URL).host
     const isLocalDb = dbHost === "localhost" || dbHost.startsWith("127.0.0.1")
     const envName = isLocalDb ? "LOCAL" : "PRODUCTION"
 
+    /* eslint-disable no-console */
     console.log("\n┌─────────────────────────────────────────┐")
     console.log("│           Environment Info              │")
     console.log("├─────────────────────────────────────────┤")
@@ -120,12 +129,13 @@ function logEnvironmentInfo(): void {
       `│  Cloudinary:   ${env.NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET.padEnd(24).slice(0, 24)}│`
     )
     console.log("└─────────────────────────────────────────┘\n")
+    /* eslint-enable no-console */
   } catch {
     // Silently fail if URL parsing fails
   }
 }
 
-// Log on module load (server startup)
+// Log on module load (only in development)
 logEnvironmentInfo()
 
 /**
