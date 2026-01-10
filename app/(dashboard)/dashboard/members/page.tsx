@@ -6,8 +6,9 @@ import { Card, CardContent } from "@/components/ui/card"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { PageHeader } from "@/components/ui/page-header"
 import { EmptyState } from "@/components/ui/empty-state"
+import { NavButton } from "@/components/nav-button"
 import Link from "next/link"
-import { UserPlus, Pencil, Users } from "lucide-react"
+import { UserPlus, Pencil, Users, User } from "lucide-react"
 import { DeleteButton } from "@/components/delete-button"
 
 export default async function MembersPage() {
@@ -37,12 +38,9 @@ export default async function MembersPage() {
         description={`${nodes.length} ${nodes.length === 1 ? "member" : "members"} in the tree`}
         actions={
           isAdmin && (
-            <Link href="/dashboard/members/add">
-              <Button>
-                <UserPlus className="mr-2 h-4 w-4" />
-                Add Member
-              </Button>
-            </Link>
+            <NavButton href="/dashboard/members/add" icon={<UserPlus className="mr-2 h-4 w-4" />}>
+              Add Member
+            </NavButton>
           )
         }
       />
@@ -74,13 +72,8 @@ export default async function MembersPage() {
                 <div className="flex items-start space-x-4">
                   <Avatar className="h-14 w-14 ring-2 ring-transparent transition-all group-hover:ring-blue-100">
                     <AvatarImage src={node.profilePicture || undefined} />
-                    <AvatarFallback className="bg-blue-50 text-base font-medium text-blue-600">
-                      {node.name
-                        .split(" ")
-                        .map((n) => n[0])
-                        .join("")
-                        .toUpperCase()
-                        .slice(0, 2)}
+                    <AvatarFallback className="bg-blue-50">
+                      <User className="h-6 w-6 text-blue-600" />
                     </AvatarFallback>
                   </Avatar>
                   <div className="min-w-0 flex-1">

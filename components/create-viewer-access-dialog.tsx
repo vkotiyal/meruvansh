@@ -138,13 +138,14 @@ export function CreateViewerAccessDialog({
                   placeholder="e.g., sharma2026"
                   required
                   className="flex-1"
+                  disabled={loading}
                 />
                 <Button
                   type="button"
                   variant="outline"
                   size="icon"
                   onClick={generateSuggestion}
-                  disabled={generatingSuggestion}
+                  disabled={generatingSuggestion || loading}
                   title="Generate suggestion"
                 >
                   <RefreshCw className={`h-4 w-4 ${generatingSuggestion ? "animate-spin" : ""}`} />
@@ -165,6 +166,7 @@ export function CreateViewerAccessDialog({
                 placeholder="Enter a secure password"
                 required
                 minLength={6}
+                disabled={loading}
               />
               <p className="text-xs text-gray-500">Minimum 6 characters</p>
             </div>

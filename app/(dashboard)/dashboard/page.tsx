@@ -2,8 +2,8 @@ import { getServerSession } from "next-auth"
 import { authOptions } from "@/lib/auth"
 import { prisma } from "@/lib/prisma"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Button } from "@/components/ui/button"
 import { PageHeader } from "@/components/ui/page-header"
+import { NavButton } from "@/components/nav-button"
 import Link from "next/link"
 import { TreePine, Users, UserPlus, Eye } from "lucide-react"
 
@@ -31,12 +31,9 @@ export default async function DashboardPage() {
         description={isAdmin ? "Manage your family tree" : "Explore your family tree"}
         actions={
           isAdmin && (
-            <Link href="/dashboard/members/add">
-              <Button>
-                <UserPlus className="mr-2 h-4 w-4" />
-                Add Member
-              </Button>
-            </Link>
+            <NavButton href="/dashboard/members/add" icon={<UserPlus className="mr-2 h-4 w-4" />}>
+              Add Member
+            </NavButton>
           )
         }
       />
@@ -92,12 +89,9 @@ export default async function DashboardPage() {
             <p className="mb-4 text-sm text-gray-500">
               Add your first family member to get started
             </p>
-            <Link href="/dashboard/members/add">
-              <Button>
-                <UserPlus className="mr-2 h-4 w-4" />
-                Add First Member
-              </Button>
-            </Link>
+            <NavButton href="/dashboard/members/add" icon={<UserPlus className="mr-2 h-4 w-4" />}>
+              Add First Member
+            </NavButton>
           </CardContent>
         </Card>
       )}

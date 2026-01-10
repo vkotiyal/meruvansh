@@ -249,6 +249,7 @@ export function ViewerAccessCard({ access, onUpdate, onDelete }: ViewerAccessCar
                 value={newPassword}
                 onChange={(e) => setNewPassword(e.target.value)}
                 placeholder="Enter new password"
+                disabled={loading}
               />
               {passwordError && <p className="text-sm text-red-500">{passwordError}</p>}
             </div>

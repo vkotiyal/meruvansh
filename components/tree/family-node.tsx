@@ -2,6 +2,7 @@
 
 import { Handle, Position } from "reactflow"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
+import { User } from "lucide-react"
 
 interface FamilyNodeData {
   id: string
@@ -22,12 +23,8 @@ export function FamilyNode({ data }: { data: FamilyNodeData }) {
         <div className="flex items-center space-x-3">
           <Avatar className="h-12 w-12">
             <AvatarImage src={data.profilePicture || undefined} />
-            <AvatarFallback>
-              {data.name
-                .split(" ")
-                .map((n) => n[0])
-                .join("")
-                .toUpperCase()}
+            <AvatarFallback className="bg-gray-100">
+              <User className="h-5 w-5 text-gray-600" />
             </AvatarFallback>
           </Avatar>
           <div className="min-w-0 flex-1">

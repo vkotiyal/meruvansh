@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react"
 import { useRouter } from "next/navigation"
 import { Button } from "@/components/ui/button"
+import { LoadingButton } from "@/components/ui/loading-button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Textarea } from "@/components/ui/textarea"
@@ -130,14 +131,15 @@ export default function EditMemberPage({ params }: { params: { id: string } }) {
 
       if (!response.ok) {
         setError(data.error || "Something went wrong")
+        setLoading(false)
         return
       }
 
+      // Keep loading true - redirect will unmount component
       router.push("/dashboard/members")
       router.refresh()
     } catch {
       setError("Something went wrong")
-    } finally {
       setLoading(false)
     }
   }
@@ -188,6 +190,7 @@ export default function EditMemberPage({ params }: { params: { id: string } }) {
                   value={formData.name}
                   onChange={handleChange}
                   required
+                  disabled={loading}
                 />
               </div>
 
@@ -198,6 +201,7 @@ export default function EditMemberPage({ params }: { params: { id: string } }) {
                   name="nickname"
                   value={formData.nickname}
                   onChange={handleChange}
+                  disabled={loading}
                 />
               </div>
 
@@ -209,6 +213,7 @@ export default function EditMemberPage({ params }: { params: { id: string } }) {
                   type="email"
                   value={formData.email}
                   onChange={handleChange}
+                  disabled={loading}
                 />
               </div>
 
@@ -220,6 +225,7 @@ export default function EditMemberPage({ params }: { params: { id: string } }) {
                   type="tel"
                   value={formData.phone}
                   onChange={handleChange}
+                  disabled={loading}
                 />
               </div>
 
@@ -231,6 +237,7 @@ export default function EditMemberPage({ params }: { params: { id: string } }) {
                   type="date"
                   value={formData.birthDate}
                   onChange={handleChange}
+                  disabled={loading}
                 />
               </div>
 
@@ -239,6 +246,7 @@ export default function EditMemberPage({ params }: { params: { id: string } }) {
                 <Select
                   value={formData.gender}
                   onValueChange={(value) => setFormData((prev) => ({ ...prev, gender: value }))}
+                  disabled={loading}
                 >
                   <SelectTrigger>
                     <SelectValue placeholder="Select gender" />
@@ -256,7 +264,7 @@ export default function EditMemberPage({ params }: { params: { id: string } }) {
                 <Select
                   value={formData.parentId}
                   onValueChange={(value) => setFormData((prev) => ({ ...prev, parentId: value }))}
-                  disabled={fetchingNodes}
+                  disabled={fetchingNodes || loading}
                 >
                   <SelectTrigger>
                     <SelectValue
@@ -278,23 +286,36 @@ export default function EditMemberPage({ params }: { params: { id: string } }) {
 
             <div className="space-y-2">
               <Label htmlFor="address">Address</Label>
-              <Input id="address" name="address" value={formData.address} onChange={handleChange} />
+              <Input
+                id="address"
+                name="address"
+                value={formData.address}
+                onChange={handleChange}
+                disabled={loading}
+              />
             </div>
 
             <div className="space-y-2">
               <Label htmlFor="bio">Bio</Label>
-              <Textarea id="bio" name="bio" value={formData.bio} onChange={handleChange} rows={4} />
+              <Textarea
+                id="bio"
+                name="bio"
+                value={formData.bio}
+                onChange={handleChange}
+                rows={4}
+                disabled={loading}
+              />
             </div>
 
             <div className="flex justify-end space-x-4">
               <Link href="/dashboard/members">
-                <Button type="button" variant="outline">
+                <Button type="button" variant="outline" disabled={loading}>
                   Cancel
                 </Button>
               </Link>
-              <Button type="submit" disabled={loading}>
-                {loading ? "Saving..." : "Save Changes"}
-              </Button>
+              <LoadingButton type="submit" loading={loading}>
+                Save Changes
+              </LoadingButton>
             </div>
           </form>
         </CardContent>

@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react"
 import { useRouter } from "next/navigation"
 import { Button } from "@/components/ui/button"
+import { LoadingButton } from "@/components/ui/loading-button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Textarea } from "@/components/ui/textarea"
@@ -102,14 +103,15 @@ export default function AddMemberPage() {
 
       if (!response.ok) {
         setError(data.error || "Something went wrong")
+        setLoading(false)
         return
       }
 
+      // Keep loading true - redirect will unmount component
       router.push("/dashboard/members")
       router.refresh()
     } catch {
       setError("Something went wrong")
-    } finally {
       setLoading(false)
     }
   }
@@ -157,6 +159,7 @@ export default function AddMemberPage() {
                   onChange={handleChange}
                   placeholder="John Doe"
                   required
+                  disabled={loading}
                 />
               </div>
 
@@ -168,6 +171,7 @@ export default function AddMemberPage() {
                   value={formData.nickname}
                   onChange={handleChange}
                   placeholder="Johnny"
+                  disabled={loading}
                 />
               </div>
 
@@ -180,6 +184,7 @@ export default function AddMemberPage() {
                   value={formData.email}
                   onChange={handleChange}
                   placeholder="john@example.com"
+                  disabled={loading}
                 />
               </div>
 
@@ -192,6 +197,7 @@ export default function AddMemberPage() {
                   value={formData.phone}
                   onChange={handleChange}
                   placeholder="+1234567890"
+                  disabled={loading}
                 />
               </div>
 
@@ -203,6 +209,7 @@ export default function AddMemberPage() {
                   type="date"
                   value={formData.birthDate}
                   onChange={handleChange}
+                  disabled={loading}
                 />
               </div>
 
@@ -211,6 +218,7 @@ export default function AddMemberPage() {
                 <Select
                   value={formData.gender}
                   onValueChange={(value) => setFormData((prev) => ({ ...prev, gender: value }))}
+                  disabled={loading}
                 >
                   <SelectTrigger>
                     <SelectValue placeholder="Select gender" />
@@ -228,7 +236,7 @@ export default function AddMemberPage() {
                 <Select
                   value={formData.parentId}
                   onValueChange={(value) => setFormData((prev) => ({ ...prev, parentId: value }))}
-                  disabled={fetchingNodes}
+                  disabled={fetchingNodes || loading}
                 >
                   <SelectTrigger>
                     <SelectValue
@@ -256,6 +264,7 @@ export default function AddMemberPage() {
                 value={formData.address}
                 onChange={handleChange}
                 placeholder="123 Main St, City, State, ZIP"
+                disabled={loading}
               />
             </div>
 
@@ -268,18 +277,19 @@ export default function AddMemberPage() {
                 onChange={handleChange}
                 placeholder="Tell us about this person..."
                 rows={4}
+                disabled={loading}
               />
             </div>
 
             <div className="flex justify-end space-x-4">
               <Link href="/dashboard/members">
-                <Button type="button" variant="outline">
+                <Button type="button" variant="outline" disabled={loading}>
                   Cancel
                 </Button>
               </Link>
-              <Button type="submit" disabled={loading}>
-                {loading ? "Adding..." : "Add Member"}
-              </Button>
+              <LoadingButton type="submit" loading={loading}>
+                Add Member
+              </LoadingButton>
             </div>
           </form>
         </CardContent>

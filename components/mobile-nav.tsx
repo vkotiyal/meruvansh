@@ -1,9 +1,8 @@
 "use client"
 
-import { useState } from "react"
-import Link from "next/link"
-import { usePathname } from "next/navigation"
-import { Menu, X, TreePine, Users, LogOut, Settings, Home } from "lucide-react"
+import { useState, useEffect, useTransition } from "react"
+import { usePathname, useRouter } from "next/navigation"
+import { Menu, X, TreePine, Users, LogOut, Settings, Home, Loader2 } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
 
@@ -14,7 +13,15 @@ interface MobileNavProps {
 
 export function MobileNav({ isAdmin, userName }: MobileNavProps) {
   const [isOpen, setIsOpen] = useState(false)
+  const [navigatingTo, setNavigatingTo] = useState<string | null>(null)
+  const [isPending, startTransition] = useTransition()
   const pathname = usePathname()
+  const router = useRouter()
+
+  // Reset navigation state when pathname changes
+  useEffect(() => {
+    setNavigatingTo(null)
+  }, [pathname])
 
   const navItems = [
     { href: "/dashboard", label: "Dashboard", icon: Home },
@@ -24,6 +31,21 @@ export function MobileNav({ isAdmin, userName }: MobileNavProps) {
   ]
 
   const isActive = (href: string) => pathname === href
+  const isLoading = (href: string) => navigatingTo === href && isPending
+
+  const handleNavClick = (href: string) => {
+    if (pathname === href) {
+      setIsOpen(false)
+      return
+    }
+    setNavigatingTo(href)
+    setIsOpen(false)
+    startTransition(() => {
+      router.push(href)
+    })
+  }
+
+  const isNavigating = navigatingTo !== null && isPending
 
   return (
     <div className="sm:hidden">
@@ -34,8 +56,15 @@ export function MobileNav({ isAdmin, userName }: MobileNavProps) {
         onClick={() => setIsOpen(!isOpen)}
         aria-label="Toggle menu"
         aria-expanded={isOpen}
+        disabled={isNavigating}
       >
-        {isOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+        {isNavigating ? (
+          <Loader2 className="h-6 w-6 animate-spin" />
+        ) : isOpen ? (
+          <X className="h-6 w-6" />
+        ) : (
+          <Menu className="h-6 w-6" />
+        )}
       </Button>
 
       {/* Mobile menu overlay */}
@@ -65,22 +94,30 @@ export function MobileNav({ isAdmin, userName }: MobileNavProps) {
             <nav className="flex flex-col space-y-1 p-4" role="menu">
               {navItems.map((item) => {
                 const Icon = item.icon
+                const loading = isLoading(item.href)
                 return (
-                  <Link
+                  <button
                     key={item.href}
-                    href={item.href}
-                    onClick={() => setIsOpen(false)}
+                    type="button"
+                    onClick={() => handleNavClick(item.href)}
+                    disabled={loading}
                     className={cn(
-                      "flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium transition-colors",
+                      "flex items-center gap-3 rounded-lg px-3 py-2 text-left text-sm font-medium transition-colors",
                       isActive(item.href)
                         ? "bg-blue-50 text-blue-700"
-                        : "text-gray-700 hover:bg-gray-100"
+                        : "text-gray-700 hover:bg-gray-100",
+                      loading && "opacity-70"
                     )}
                     role="menuitem"
+                    aria-busy={loading}
                   >
-                    <Icon className="h-5 w-5" />
+                    {loading ? (
+                      <Loader2 className="h-5 w-5 animate-spin" />
+                    ) : (
+                      <Icon className="h-5 w-5" />
+                    )}
                     {item.label}
-                  </Link>
+                  </button>
                 )
               })}
 

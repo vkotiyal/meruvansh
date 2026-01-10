@@ -41,14 +41,14 @@ export default function SignupPage() {
 
       if (!response.ok) {
         setError(data.error || "Something went wrong")
+        setLoading(false)
         return
       }
 
-      // Redirect to login with success message
+      // Keep loading true - redirect will unmount component
       router.push("/login?signup=success")
     } catch {
       setError("Something went wrong")
-    } finally {
       setLoading(false)
     }
   }

@@ -53,13 +53,14 @@ export default function LoginPage() {
         } else {
           setError("Invalid family code or password")
         }
+        setLoading(false)
       } else {
+        // Keep loading true - redirect will unmount component
         router.push("/dashboard")
         router.refresh()
       }
     } catch {
       setError("Something went wrong")
-    } finally {
       setLoading(false)
     }
   }
