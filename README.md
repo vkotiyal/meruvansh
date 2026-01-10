@@ -6,7 +6,7 @@
 
 **A modern, secure, and intuitive family tree management platform built with Next.js 14**
 
-[![CI](https://github.com/vkotiyal/vanshvriksh/actions/workflows/ci.yml/badge.svg)](https://github.com/vkotiyal/vanshvriksh/actions/workflows/ci.yml)
+[![CI](https://img.shields.io/github/actions/workflow/status/vkotiyal/vanshvriksh/ci.yml?style=for-the-badge&logo=github&label=CI)](https://github.com/vkotiyal/vanshvriksh/actions/workflows/ci.yml)
 [![Next.js](https://img.shields.io/badge/Next.js-14-black?style=for-the-badge&logo=next.js)](https://nextjs.org/)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.0-blue?style=for-the-badge&logo=typescript)](https://www.typescriptlang.org/)
 [![Prisma](https://img.shields.io/badge/Prisma-5.0-2D3748?style=for-the-badge&logo=prisma)](https://www.prisma.io/)
@@ -61,21 +61,24 @@ This project demonstrates proficiency in:
 
 ### Core Functionality
 
-- 🔐 **Secure Authentication** - Email/password with NextAuth.js
-- 👤 **User Profiles** - Customizable user accounts
-- 🌲 **Family Tree Creation** - Add, edit, and organize family members
+- 🔐 **Secure Authentication** - Dual login: Admin (email) & Family Viewer (access code)
+- 👥 **Role-Based Access Control** - Admin and Viewer roles with granular permissions
+- 🔑 **Family Access Codes** - Share your tree with read-only access for family members
+- 👤 **User Profiles** - Customizable user accounts with profile pictures
+- 🌲 **Family Tree Creation** - Add, edit, and organize family members (Admin only)
 - 📊 **Interactive Visualization** - Dynamic tree rendering with React Flow
 - 🖼️ **Profile Pictures** - Image upload with Cloudinary integration
 - 🔍 **Search & Filter** - Find family members quickly
-- 📱 **Responsive Design** - Works on desktop, tablet, and mobile
+- 📱 **Responsive Design** - Works on desktop, tablet, and mobile with hamburger navigation
 
 ### Technical Features
 
 - ⚡ **Server-Side Rendering (SSR)** - Fast initial page loads
-- 🎨 **Modern UI Components** - Shadcn/ui + Radix UI
-- 🔒 **Type-Safe API** - End-to-end TypeScript
-- 📐 **Database Migrations** - Version-controlled schema changes
-- 🧪 **Testing** - Unit and integration tests
+- 🎨 **Modern UI Components** - Shadcn/ui + Radix UI with custom loading states
+- 🔒 **Type-Safe API** - End-to-end TypeScript with Zod validation
+- 📐 **Database Migrations** - Version-controlled schema changes with Prisma
+- 🛡️ **Security** - JWT authentication, bcrypt password hashing, RBAC
+- 🎯 **UX Improvements** - Loading buttons, empty states, toast notifications
 - 🚀 **CI/CD Pipeline** - Automated deployment with GitHub Actions
 - 🌐 **SEO Optimized** - Meta tags, OpenGraph, sitemap
 
@@ -193,38 +196,84 @@ This project demonstrates proficiency in:
 vanshvriksh/
 ├── app/                      # Next.js app directory (App Router)
 │   ├── (auth)/              # Authentication routes (grouped)
-│   │   ├── login/
-│   │   └── signup/
+│   │   ├── login/           # Login page (dual mode: admin/viewer)
+│   │   │   └── page.tsx
+│   │   └── signup/          # User registration
+│   │       └── page.tsx
 │   ├── (dashboard)/         # Protected dashboard routes
+│   │   ├── layout.tsx      # Dashboard layout with navigation
 │   │   └── dashboard/
-│   │       ├── members/     # Member management
-│   │       └── tree/        # Tree visualization
-│   ├── api/                 # API routes
-│   │   ├── auth/           # NextAuth endpoints
-│   │   └── nodes/          # Node CRUD operations
-│   ├── layout.tsx          # Root layout
-│   └── page.tsx            # Landing page
-├── components/              # React components
-│   ├── ui/                 # Shadcn/ui components
-│   ├── providers/          # Context providers
-│   └── [feature]/          # Feature-specific components
-├── lib/                    # Utility functions & configs
-│   ├── auth.ts            # NextAuth configuration
-│   ├── prisma.ts          # Prisma client singleton
-│   └── utils.ts           # Helper functions
-├── prisma/                 # Database schema & migrations
-│   └── schema.prisma      # Prisma schema
-├── public/                # Static assets
-├── types/                 # TypeScript type definitions
-├── .github/               # GitHub Actions workflows
+│   │       ├── page.tsx    # Dashboard home
+│   │       ├── members/    # Member management
+│   │       │   ├── page.tsx              # Members list
+│   │       │   ├── add/page.tsx          # Add new member
+│   │       │   └── [id]/page.tsx         # Edit member
+│   │       ├── settings/   # Admin settings (RBAC management)
+│   │       │   └── page.tsx
+│   │       └── tree/       # Tree visualization
+│   │           └── page.tsx
+│   ├── api/                # API routes
+│   │   ├── auth/          # NextAuth endpoints
+│   │   │   └── [...nextauth]/route.ts
+│   │   ├── nodes/         # Node CRUD operations
+│   │   │   ├── route.ts              # GET all, POST new
+│   │   │   └── [id]/route.ts         # GET, PUT, DELETE by ID
+│   │   └── viewer-access/ # Viewer access management (RBAC)
+│   │       ├── route.ts              # GET all, POST new
+│   │       └── [id]/route.ts         # PUT, DELETE by ID
+│   ├── layout.tsx         # Root layout
+│   ├── page.tsx           # Landing page
+│   └── globals.css        # Global styles
+├── components/             # React components
+│   ├── ui/                # Shadcn/ui + custom components
+│   │   ├── button.tsx
+│   │   ├── card.tsx
+│   │   ├── input.tsx
+│   │   ├── label.tsx
+│   │   ├── avatar.tsx
+│   │   ├── dialog.tsx
+│   │   ├── alert-dialog.tsx
+│   │   ├── switch.tsx
+│   │   ├── toast.tsx
+│   │   ├── toaster.tsx
+│   │   ├── loading-button.tsx      # Custom: Button with loading state
+│   │   ├── empty-state.tsx         # Custom: Empty state component
+│   │   ├── page-header.tsx         # Custom: Page header component
+│   │   └── loading-skeleton.tsx    # Custom: Skeleton loaders
+│   ├── providers/         # Context providers
+│   │   └── toast-provider.tsx
+│   ├── delete-button.tsx          # Delete member button with confirmation
+│   ├── mobile-nav.tsx             # Mobile hamburger navigation
+│   ├── viewer-access-card.tsx     # Viewer access code card (RBAC)
+│   └── create-viewer-access-dialog.tsx  # Create access code dialog
+├── hooks/                 # Custom React hooks
+│   ├── use-toast.ts      # Toast notification hook
+│   └── use-session-role.ts  # Session role helper hook (RBAC)
+├── lib/                   # Utility functions & configs
+│   ├── auth.ts           # NextAuth configuration (RBAC)
+│   ├── prisma.ts         # Prisma client singleton
+│   └── utils.ts          # Helper functions (cn, etc.)
+├── prisma/               # Database schema & migrations
+│   └── schema.prisma     # Prisma schema (User, Tree, Node, ViewerAccess)
+├── public/               # Static assets
+│   ├── favicon.ico
+│   └── images/
+├── types/                # TypeScript type definitions
+│   └── next-auth.d.ts   # NextAuth type extensions (role, treeId)
+├── .github/              # GitHub Actions workflows
 │   └── workflows/
-├── .husky/                # Git hooks
-├── .eslintrc.json        # ESLint configuration
-├── .prettierrc           # Prettier configuration
-├── next.config.js        # Next.js configuration
-├── tailwind.config.ts    # Tailwind CSS configuration
-├── tsconfig.json         # TypeScript configuration
-└── package.json          # Dependencies & scripts
+│       └── ci.yml       # Continuous integration
+├── .husky/               # Git hooks
+│   ├── pre-commit       # Lint-staged
+│   └── commit-msg       # Commitlint
+├── .eslintrc.json       # ESLint configuration
+├── .prettierrc          # Prettier configuration
+├── commitlint.config.js # Commit message linting
+├── next.config.js       # Next.js configuration
+├── tailwind.config.ts   # Tailwind CSS configuration
+├── tsconfig.json        # TypeScript configuration
+├── package.json         # Dependencies & scripts
+└── README.md            # This file
 ```
 
 ---
@@ -237,6 +286,7 @@ vanshvriksh/
 erDiagram
     User ||--o| Tree : owns
     Tree ||--o{ Node : contains
+    Tree ||--o{ ViewerAccess : "shared with"
     Node ||--o{ Node : parent-child
 
     User {
@@ -265,13 +315,46 @@ erDiagram
         string profilePicture
         text bio
     }
+
+    ViewerAccess {
+        string id PK
+        string treeId FK
+        string familyCode UK
+        string password
+        boolean enabled
+        datetime createdAt
+    }
 ```
 
 ### Authentication Flow
 
 ```
-User → Login Page → NextAuth → Database → JWT Token → Protected Routes
+Admin User → Login (email + password) → NextAuth → User table → JWT (role: admin) → Full Access
+Family Member → Login (familyCode + password) → NextAuth → ViewerAccess table → JWT (role: viewer) → Read-Only Access
 ```
+
+### Access Control
+
+The application implements Role-Based Access Control (RBAC) with two roles:
+
+- **Admin** (Tree Owner)
+  - Full CRUD operations on tree and members
+  - Create and manage family access codes
+  - View all settings and analytics
+  - Cannot be deleted if they own the tree
+
+- **Viewer** (Family Member)
+  - Read-only access to tree visualization
+  - View all family members
+  - Cannot add, edit, or delete anything
+  - Login using shared family code + password
+
+Access codes can be:
+
+- Created by admins with unique family codes (e.g., "sharma2026")
+- Enabled/disabled dynamically
+- Password-protected (bcrypt hashed)
+- Shared with multiple family members
 
 ### Tree Visualization Algorithm
 

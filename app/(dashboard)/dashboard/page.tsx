@@ -3,8 +3,9 @@ import { authOptions } from "@/lib/auth"
 import { prisma } from "@/lib/prisma"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
+import { PageHeader } from "@/components/ui/page-header"
 import Link from "next/link"
-import { TreePine, Users, UserPlus } from "lucide-react"
+import { TreePine, Users, UserPlus, Eye } from "lucide-react"
 
 export default async function DashboardPage() {
   const session = await getServerSession(authOptions)
@@ -20,19 +21,28 @@ export default async function DashboardPage() {
     },
   })
 
-  return (
-    <div className="space-y-6">
-      <div>
-        <h1 className="text-3xl font-bold text-gray-900">
-          Welcome back, {session!.user.name || "User"}!
-        </h1>
-        <p className="text-gray-600">
-          {isAdmin ? "Manage your family tree and members" : "Explore the family tree"}
-        </p>
-      </div>
+  const memberCount = tree?._count.nodes || 0
+  const hasMembers = memberCount > 0
 
-      <div className={`grid gap-6 ${isAdmin ? "md:grid-cols-3" : "md:grid-cols-2"}`}>
-        <Card>
+  return (
+    <div className="space-y-8">
+      <PageHeader
+        title={`Welcome back, ${session!.user.name || "User"}!`}
+        description={isAdmin ? "Manage your family tree" : "Explore your family tree"}
+        actions={
+          isAdmin && (
+            <Link href="/dashboard/members/add">
+              <Button>
+                <UserPlus className="mr-2 h-4 w-4" />
+                Add Member
+              </Button>
+            </Link>
+          )
+        }
+      />
+
+      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        <Card className="transition-shadow hover:shadow-md">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">Family Tree</CardTitle>
             <TreePine className="h-4 w-4 text-muted-foreground" />
@@ -40,80 +50,88 @@ export default async function DashboardPage() {
           <CardContent>
             <div className="text-2xl font-bold">{tree?.name}</div>
             <p className="text-xs text-muted-foreground">
-              Created on {tree?.createdAt.toLocaleDateString()}
+              Created {tree?.createdAt.toLocaleDateString()}
             </p>
           </CardContent>
         </Card>
 
-        <Card>
+        <Card className="transition-shadow hover:shadow-md">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Total Members</CardTitle>
+            <CardTitle className="text-sm font-medium">Members</CardTitle>
             <Users className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">{tree?._count.nodes || 0}</div>
-            <p className="text-xs text-muted-foreground">Family members in tree</p>
+            <div className="text-2xl font-bold">{memberCount}</div>
+            <p className="text-xs text-muted-foreground">
+              {memberCount === 1 ? "family member" : "family members"}
+            </p>
           </CardContent>
         </Card>
 
-        {isAdmin && (
-          <Card>
+        {!isAdmin && (
+          <Card className="transition-shadow hover:shadow-md">
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">Quick Actions</CardTitle>
-              <UserPlus className="h-4 w-4 text-muted-foreground" />
+              <CardTitle className="text-sm font-medium">Access</CardTitle>
+              <Eye className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
-              <Link href="/dashboard/members/add">
-                <Button className="w-full">
-                  <UserPlus className="mr-2 h-4 w-4" />
-                  Add Member
-                </Button>
-              </Link>
+              <div className="text-2xl font-bold">Viewer</div>
+              <p className="text-xs text-muted-foreground">Read-only access</p>
             </CardContent>
           </Card>
         )}
       </div>
 
-      {isAdmin && (
-        <Card>
-          <CardHeader>
-            <CardTitle>Getting Started</CardTitle>
-          </CardHeader>
-          <CardContent className="space-y-4">
-            <div className="flex items-start space-x-4">
-              <div className="rounded-full bg-blue-100 p-2">
-                <span className="font-bold text-blue-600">1</span>
-              </div>
-              <div>
-                <h3 className="font-semibold">Add yourself as the root node</h3>
-                <p className="text-sm text-gray-600">Start by creating a node for yourself</p>
-                <Link href="/dashboard/members/add">
-                  <Button variant="link" className="px-0">
-                    Add yourself →
-                  </Button>
-                </Link>
-              </div>
+      {isAdmin && !hasMembers && (
+        <Card className="border-dashed">
+          <CardContent className="flex flex-col items-center justify-center py-8 text-center">
+            <div className="mb-4 rounded-full bg-blue-50 p-3">
+              <UserPlus className="h-6 w-6 text-blue-600" />
             </div>
-            <div className="flex items-start space-x-4">
-              <div className="rounded-full bg-gray-100 p-2">
-                <span className="font-bold text-gray-400">2</span>
-              </div>
-              <div>
-                <h3 className="font-semibold text-gray-400">Add family members</h3>
-                <p className="text-sm text-gray-400">Add parents, siblings, and children</p>
-              </div>
-            </div>
-            <div className="flex items-start space-x-4">
-              <div className="rounded-full bg-gray-100 p-2">
-                <span className="font-bold text-gray-400">3</span>
-              </div>
-              <div>
-                <h3 className="font-semibold text-gray-400">View your tree</h3>
-                <p className="text-sm text-gray-400">Visualize your family tree</p>
-              </div>
-            </div>
+            <h3 className="mb-1 text-lg font-semibold">Start Building Your Tree</h3>
+            <p className="mb-4 text-sm text-gray-500">
+              Add your first family member to get started
+            </p>
+            <Link href="/dashboard/members/add">
+              <Button>
+                <UserPlus className="mr-2 h-4 w-4" />
+                Add First Member
+              </Button>
+            </Link>
           </CardContent>
         </Card>
+      )}
+
+      {hasMembers && (
+        <div className="grid gap-4 sm:grid-cols-2">
+          <Link href="/dashboard/tree" className="group">
+            <Card className="transition-all hover:border-blue-200 hover:shadow-md">
+              <CardContent className="flex items-center gap-4 p-6">
+                <div className="rounded-lg bg-blue-50 p-3 transition-colors group-hover:bg-blue-100">
+                  <TreePine className="h-6 w-6 text-blue-600" />
+                </div>
+                <div>
+                  <h3 className="font-semibold">View Tree</h3>
+                  <p className="text-sm text-gray-500">Visualize family connections</p>
+                </div>
+              </CardContent>
+            </Card>
+          </Link>
+
+          <Link href="/dashboard/members" className="group">
+            <Card className="transition-all hover:border-blue-200 hover:shadow-md">
+              <CardContent className="flex items-center gap-4 p-6">
+                <div className="rounded-lg bg-blue-50 p-3 transition-colors group-hover:bg-blue-100">
+                  <Users className="h-6 w-6 text-blue-600" />
+                </div>
+                <div>
+                  <h3 className="font-semibold">View Members</h3>
+                  <p className="text-sm text-gray-500">Browse all family members</p>
+                </div>
+              </CardContent>
+            </Card>
+          </Link>
+        </div>
       )}
     </div>
   )

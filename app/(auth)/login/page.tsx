@@ -4,7 +4,7 @@ import { useState } from "react"
 import { signIn } from "next-auth/react"
 import { useRouter } from "next/navigation"
 import Link from "next/link"
-import { Button } from "@/components/ui/button"
+import { LoadingButton } from "@/components/ui/loading-button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import {
@@ -33,10 +33,17 @@ export default function LoginPage() {
     setLoading(true)
 
     try {
+      // Build credentials object based on mode
+      const credentials: Record<string, string> = { password }
+
+      if (mode === "admin") {
+        credentials.email = email
+      } else {
+        credentials.familyCode = familyCode
+      }
+
       const result = await signIn("credentials", {
-        email: mode === "admin" ? email : undefined,
-        familyCode: mode === "viewer" ? familyCode : undefined,
-        password,
+        ...credentials,
         redirect: false,
       })
 
@@ -150,9 +157,9 @@ export default function LoginPage() {
           </CardContent>
 
           <CardFooter className="flex flex-col space-y-4">
-            <Button type="submit" className="w-full" disabled={loading}>
-              {loading ? "Signing in..." : "Sign in"}
-            </Button>
+            <LoadingButton type="submit" className="w-full" loading={loading}>
+              Sign in
+            </LoadingButton>
 
             {mode === "admin" && (
               <p className="text-center text-sm text-gray-600">

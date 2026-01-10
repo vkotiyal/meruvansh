@@ -4,8 +4,10 @@ import { prisma } from "@/lib/prisma"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
+import { PageHeader } from "@/components/ui/page-header"
+import { EmptyState } from "@/components/ui/empty-state"
 import Link from "next/link"
-import { UserPlus, Pencil } from "lucide-react"
+import { UserPlus, Pencil, Users } from "lucide-react"
 import { DeleteButton } from "@/components/delete-button"
 
 export default async function MembersPage() {
@@ -30,76 +32,80 @@ export default async function MembersPage() {
 
   return (
     <div className="space-y-6">
-      <div className="flex items-center justify-between">
-        <div>
-          <h1 className="text-3xl font-bold text-gray-900">Family Members</h1>
-          <p className="text-gray-600">
-            {isAdmin
-              ? "Manage all members in your family tree"
-              : "View all members in the family tree"}
-          </p>
-        </div>
-        {isAdmin && (
-          <Link href="/dashboard/members/add">
-            <Button>
-              <UserPlus className="mr-2 h-4 w-4" />
-              Add Member
-            </Button>
-          </Link>
-        )}
-      </div>
+      <PageHeader
+        title="Family Members"
+        description={`${nodes.length} ${nodes.length === 1 ? "member" : "members"} in the tree`}
+        actions={
+          isAdmin && (
+            <Link href="/dashboard/members/add">
+              <Button>
+                <UserPlus className="mr-2 h-4 w-4" />
+                Add Member
+              </Button>
+            </Link>
+          )
+        }
+      />
 
       {nodes.length === 0 ? (
-        <Card>
-          <CardContent className="py-12 text-center">
-            <p className="mb-4 text-gray-500">No family members yet</p>
-            {isAdmin && (
-              <Link href="/dashboard/members/add">
-                <Button>
-                  <UserPlus className="mr-2 h-4 w-4" />
-                  Add Your First Member
-                </Button>
-              </Link>
-            )}
-          </CardContent>
-        </Card>
+        <EmptyState
+          icon={Users}
+          title="No family members yet"
+          description={
+            isAdmin ? "Add your first family member to get started" : "No members to display"
+          }
+          action={
+            isAdmin
+              ? {
+                  label: "Add First Member",
+                  onClick: () => (window.location.href = "/dashboard/members/add"),
+                }
+              : undefined
+          }
+        />
       ) : (
-        <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+        <div className="grid gap-4 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
           {nodes.map((node) => (
-            <Card key={node.id} className="transition-shadow hover:shadow-md">
+            <Card
+              key={node.id}
+              className="group transition-all hover:border-blue-200 hover:shadow-lg"
+            >
               <CardContent className="p-6">
                 <div className="flex items-start space-x-4">
-                  <Avatar className="h-16 w-16">
+                  <Avatar className="h-14 w-14 ring-2 ring-transparent transition-all group-hover:ring-blue-100">
                     <AvatarImage src={node.profilePicture || undefined} />
-                    <AvatarFallback className="text-lg">
+                    <AvatarFallback className="bg-blue-50 text-base font-medium text-blue-600">
                       {node.name
                         .split(" ")
                         .map((n) => n[0])
                         .join("")
-                        .toUpperCase()}
+                        .toUpperCase()
+                        .slice(0, 2)}
                     </AvatarFallback>
                   </Avatar>
                   <div className="min-w-0 flex-1">
-                    <h3 className="truncate text-lg font-semibold">{node.name}</h3>
+                    <h3 className="truncate font-semibold text-gray-900">{node.name}</h3>
                     {node.nickname && (
                       <p className="text-sm text-gray-500">&quot;{node.nickname}&quot;</p>
                     )}
-                    {node.email && <p className="truncate text-sm text-gray-600">{node.email}</p>}
-                    {node.parent && (
-                      <p className="mt-1 text-xs text-gray-500">Child of {node.parent.name}</p>
-                    )}
-                    {node.children.length > 0 && (
-                      <p className="text-xs text-gray-500">
-                        {node.children.length} {node.children.length === 1 ? "child" : "children"}
-                      </p>
-                    )}
+                    <div className="mt-2 space-y-1">
+                      {node.email && <p className="truncate text-xs text-gray-600">{node.email}</p>}
+                      {node.parent && (
+                        <p className="text-xs text-gray-500">Child of {node.parent.name}</p>
+                      )}
+                      {node.children.length > 0 && (
+                        <p className="text-xs text-gray-500">
+                          {node.children.length} {node.children.length === 1 ? "child" : "children"}
+                        </p>
+                      )}
+                    </div>
                   </div>
                 </div>
 
                 {isAdmin && (
-                  <div className="mt-4 flex justify-end space-x-2">
-                    <Link href={`/dashboard/members/${node.id}`}>
-                      <Button variant="outline" size="sm">
+                  <div className="mt-4 flex gap-2">
+                    <Link href={`/dashboard/members/${node.id}`} className="flex-1">
+                      <Button variant="outline" size="sm" className="w-full">
                         <Pencil className="mr-1 h-3 w-3" />
                         Edit
                       </Button>

@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react"
 import { Button } from "@/components/ui/button"
+import { LoadingButton } from "@/components/ui/loading-button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import {
@@ -13,6 +14,7 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog"
 import { RefreshCw } from "lucide-react"
+import { useToast } from "@/hooks/use-toast"
 
 interface CreateViewerAccessDialogProps {
   open: boolean
@@ -25,6 +27,7 @@ export function CreateViewerAccessDialog({
   onOpenChange,
   onSuccess,
 }: CreateViewerAccessDialogProps) {
+  const { toast } = useToast()
   const [familyCode, setFamilyCode] = useState("")
   const [password, setPassword] = useState("")
   const [loading, setLoading] = useState(false)
@@ -90,6 +93,10 @@ export function CreateViewerAccessDialog({
       }
 
       // Success
+      toast({
+        title: "Success",
+        description: `Access code "${familyCode}" created successfully`,
+      })
       setFamilyCode("")
       setPassword("")
       onSuccess()
@@ -170,12 +177,12 @@ export function CreateViewerAccessDialog({
             </div>
           </div>
           <DialogFooter>
-            <Button type="button" variant="outline" onClick={handleClose}>
+            <Button type="button" variant="outline" onClick={handleClose} disabled={loading}>
               Cancel
             </Button>
-            <Button type="submit" disabled={loading}>
-              {loading ? "Creating..." : "Create Access Code"}
-            </Button>
+            <LoadingButton type="submit" loading={loading}>
+              Create Access Code
+            </LoadingButton>
           </DialogFooter>
         </form>
       </DialogContent>

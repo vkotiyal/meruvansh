@@ -3,6 +3,7 @@
 import { useState } from "react"
 import { Card, CardContent } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
+import { LoadingButton } from "@/components/ui/loading-button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import {
@@ -15,7 +16,6 @@ import {
 } from "@/components/ui/dialog"
 import {
   AlertDialog,
-  AlertDialogAction,
   AlertDialogCancel,
   AlertDialogContent,
   AlertDialogDescription,
@@ -25,6 +25,7 @@ import {
 } from "@/components/ui/alert-dialog"
 import { Key, Power, Trash2, Copy, Check } from "lucide-react"
 import { Switch } from "@/components/ui/switch"
+import { useToast } from "@/hooks/use-toast"
 
 interface ViewerAccess {
   id: string
@@ -41,6 +42,7 @@ interface ViewerAccessCardProps {
 }
 
 export function ViewerAccessCard({ access, onUpdate, onDelete }: ViewerAccessCardProps) {
+  const { toast } = useToast()
   const [loading, setLoading] = useState(false)
   const [showPasswordDialog, setShowPasswordDialog] = useState(false)
   const [showDeleteDialog, setShowDeleteDialog] = useState(false)
@@ -62,10 +64,18 @@ export function ViewerAccessCard({ access, onUpdate, onDelete }: ViewerAccessCar
         throw new Error(data.error || "Failed to update")
       }
 
+      toast({
+        title: "Success",
+        description: `Access ${!access.enabled ? "enabled" : "disabled"} successfully`,
+      })
       onUpdate()
     } catch (error) {
       console.error("Failed to toggle access:", error)
-      alert(error instanceof Error ? error.message : "Failed to update access")
+      toast({
+        title: "Error",
+        description: error instanceof Error ? error.message : "Failed to update access",
+        variant: "destructive",
+      })
     } finally {
       setLoading(false)
     }
@@ -92,6 +102,10 @@ export function ViewerAccessCard({ access, onUpdate, onDelete }: ViewerAccessCar
         throw new Error(data.error || "Failed to update password")
       }
 
+      toast({
+        title: "Success",
+        description: "Password updated successfully",
+      })
       setShowPasswordDialog(false)
       setNewPassword("")
       onUpdate()
@@ -115,11 +129,19 @@ export function ViewerAccessCard({ access, onUpdate, onDelete }: ViewerAccessCar
         throw new Error(data.error || "Failed to delete")
       }
 
+      toast({
+        title: "Success",
+        description: "Access code deleted successfully",
+      })
       setShowDeleteDialog(false)
       onDelete()
     } catch (error) {
       console.error("Failed to delete access:", error)
-      alert(error instanceof Error ? error.message : "Failed to delete access")
+      toast({
+        title: "Error",
+        description: error instanceof Error ? error.message : "Failed to delete access",
+        variant: "destructive",
+      })
     } finally {
       setLoading(false)
     }
@@ -232,12 +254,16 @@ export function ViewerAccessCard({ access, onUpdate, onDelete }: ViewerAccessCar
             </div>
           </div>
           <DialogFooter>
-            <Button variant="outline" onClick={() => setShowPasswordDialog(false)}>
+            <Button
+              variant="outline"
+              onClick={() => setShowPasswordDialog(false)}
+              disabled={loading}
+            >
               Cancel
             </Button>
-            <Button onClick={handleChangePassword} disabled={loading}>
-              {loading ? "Updating..." : "Update Password"}
-            </Button>
+            <LoadingButton onClick={handleChangePassword} loading={loading}>
+              Update Password
+            </LoadingButton>
           </DialogFooter>
         </DialogContent>
       </Dialog>
@@ -254,14 +280,10 @@ export function ViewerAccessCard({ access, onUpdate, onDelete }: ViewerAccessCar
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>
-            <AlertDialogCancel>Cancel</AlertDialogCancel>
-            <AlertDialogAction
-              onClick={handleDelete}
-              className="bg-red-600 hover:bg-red-700"
-              disabled={loading}
-            >
-              {loading ? "Deleting..." : "Delete"}
-            </AlertDialogAction>
+            <AlertDialogCancel disabled={loading}>Cancel</AlertDialogCancel>
+            <LoadingButton onClick={handleDelete} loading={loading} variant="destructive">
+              Delete
+            </LoadingButton>
           </AlertDialogFooter>
         </AlertDialogContent>
       </AlertDialog>
