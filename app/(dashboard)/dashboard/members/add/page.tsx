@@ -17,6 +17,7 @@ import {
 import { ArrowLeft } from "lucide-react"
 import Link from "next/link"
 import { ImageUpload } from "@/components/image-upload"
+import { useSessionRole } from "@/hooks/use-session-role"
 
 interface Node {
   id: string
@@ -26,6 +27,7 @@ interface Node {
 
 export default function AddMemberPage() {
   const router = useRouter()
+  const { isAdmin, isLoading } = useSessionRole()
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState("")
   const [nodes, setNodes] = useState<Node[]>([])
@@ -43,9 +45,18 @@ export default function AddMemberPage() {
     profilePicture: "",
   })
 
+  // Redirect viewers to dashboard
   useEffect(() => {
-    fetchNodes()
-  }, [])
+    if (!isLoading && !isAdmin) {
+      router.push("/dashboard")
+    }
+  }, [isAdmin, isLoading, router])
+
+  useEffect(() => {
+    if (isAdmin) {
+      fetchNodes()
+    }
+  }, [isAdmin])
 
   const fetchNodes = async () => {
     try {

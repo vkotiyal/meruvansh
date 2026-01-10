@@ -2,7 +2,7 @@ import { getServerSession } from "next-auth"
 import { redirect } from "next/navigation"
 import { authOptions } from "@/lib/auth"
 import Link from "next/link"
-import { TreePine, Users, LogOut } from "lucide-react"
+import { TreePine, Users, LogOut, Settings } from "lucide-react"
 import { Button } from "@/components/ui/button"
 
 export default async function DashboardLayout({ children }: { children: React.ReactNode }) {
@@ -11,6 +11,8 @@ export default async function DashboardLayout({ children }: { children: React.Re
   if (!session) {
     redirect("/login")
   }
+
+  const isAdmin = session.user.role === "admin"
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -47,6 +49,16 @@ export default async function DashboardLayout({ children }: { children: React.Re
                   <Users className="mr-1 h-4 w-4" aria-hidden="true" />
                   Members
                 </Link>
+                {isAdmin && (
+                  <Link
+                    href="/dashboard/settings"
+                    className="inline-flex items-center px-1 pt-1 text-sm font-medium text-gray-500 hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:ring-offset-2"
+                    role="menuitem"
+                  >
+                    <Settings className="mr-1 h-4 w-4" aria-hidden="true" />
+                    Settings
+                  </Link>
+                )}
               </div>
             </div>
             <div className="flex items-center space-x-4">

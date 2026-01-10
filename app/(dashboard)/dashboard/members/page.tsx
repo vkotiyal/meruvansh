@@ -10,10 +10,11 @@ import { DeleteButton } from "@/components/delete-button"
 
 export default async function MembersPage() {
   const session = await getServerSession(authOptions)
+  const isAdmin = session?.user.role === "admin"
 
-  // Get all nodes
+  // Get all nodes using treeId (works for both admin and viewer)
   const tree = await prisma.tree.findUnique({
-    where: { userId: session!.user.id },
+    where: { id: session!.user.treeId },
     include: {
       nodes: {
         orderBy: { createdAt: "desc" },
@@ -32,26 +33,34 @@ export default async function MembersPage() {
       <div className="flex items-center justify-between">
         <div>
           <h1 className="text-3xl font-bold text-gray-900">Family Members</h1>
-          <p className="text-gray-600">Manage all members in your family tree</p>
+          <p className="text-gray-600">
+            {isAdmin
+              ? "Manage all members in your family tree"
+              : "View all members in the family tree"}
+          </p>
         </div>
-        <Link href="/dashboard/members/add">
-          <Button>
-            <UserPlus className="mr-2 h-4 w-4" />
-            Add Member
-          </Button>
-        </Link>
+        {isAdmin && (
+          <Link href="/dashboard/members/add">
+            <Button>
+              <UserPlus className="mr-2 h-4 w-4" />
+              Add Member
+            </Button>
+          </Link>
+        )}
       </div>
 
       {nodes.length === 0 ? (
         <Card>
           <CardContent className="py-12 text-center">
             <p className="mb-4 text-gray-500">No family members yet</p>
-            <Link href="/dashboard/members/add">
-              <Button>
-                <UserPlus className="mr-2 h-4 w-4" />
-                Add Your First Member
-              </Button>
-            </Link>
+            {isAdmin && (
+              <Link href="/dashboard/members/add">
+                <Button>
+                  <UserPlus className="mr-2 h-4 w-4" />
+                  Add Your First Member
+                </Button>
+              </Link>
+            )}
           </CardContent>
         </Card>
       ) : (
@@ -87,15 +96,17 @@ export default async function MembersPage() {
                   </div>
                 </div>
 
-                <div className="mt-4 flex justify-end space-x-2">
-                  <Link href={`/dashboard/members/${node.id}`}>
-                    <Button variant="outline" size="sm">
-                      <Pencil className="mr-1 h-3 w-3" />
-                      Edit
-                    </Button>
-                  </Link>
-                  <DeleteButton nodeId={node.id} hasChildren={node.children.length > 0} />
-                </div>
+                {isAdmin && (
+                  <div className="mt-4 flex justify-end space-x-2">
+                    <Link href={`/dashboard/members/${node.id}`}>
+                      <Button variant="outline" size="sm">
+                        <Pencil className="mr-1 h-3 w-3" />
+                        Edit
+                      </Button>
+                    </Link>
+                    <DeleteButton nodeId={node.id} hasChildren={node.children.length > 0} />
+                  </div>
+                )}
               </CardContent>
             </Card>
           ))}

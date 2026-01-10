@@ -8,10 +8,11 @@ import { TreePine, Users, UserPlus } from "lucide-react"
 
 export default async function DashboardPage() {
   const session = await getServerSession(authOptions)
+  const isAdmin = session?.user.role === "admin"
 
-  // Get user's tree and member count
+  // Get tree and member count using treeId (works for both admin and viewer)
   const tree = await prisma.tree.findUnique({
-    where: { userId: session!.user.id },
+    where: { id: session!.user.treeId },
     include: {
       _count: {
         select: { nodes: true },
@@ -25,10 +26,12 @@ export default async function DashboardPage() {
         <h1 className="text-3xl font-bold text-gray-900">
           Welcome back, {session!.user.name || "User"}!
         </h1>
-        <p className="text-gray-600">Manage your family tree and members</p>
+        <p className="text-gray-600">
+          {isAdmin ? "Manage your family tree and members" : "Explore the family tree"}
+        </p>
       </div>
 
-      <div className="grid gap-6 md:grid-cols-3">
+      <div className={`grid gap-6 ${isAdmin ? "md:grid-cols-3" : "md:grid-cols-2"}`}>
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">Family Tree</CardTitle>
@@ -49,65 +52,69 @@ export default async function DashboardPage() {
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">{tree?._count.nodes || 0}</div>
-            <p className="text-xs text-muted-foreground">Family members added</p>
+            <p className="text-xs text-muted-foreground">Family members in tree</p>
           </CardContent>
         </Card>
 
-        <Card>
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Quick Actions</CardTitle>
-            <UserPlus className="h-4 w-4 text-muted-foreground" />
-          </CardHeader>
-          <CardContent>
-            <Link href="/dashboard/members/add">
-              <Button className="w-full">
-                <UserPlus className="mr-2 h-4 w-4" />
-                Add Member
-              </Button>
-            </Link>
-          </CardContent>
-        </Card>
-      </div>
-
-      <Card>
-        <CardHeader>
-          <CardTitle>Getting Started</CardTitle>
-        </CardHeader>
-        <CardContent className="space-y-4">
-          <div className="flex items-start space-x-4">
-            <div className="rounded-full bg-blue-100 p-2">
-              <span className="font-bold text-blue-600">1</span>
-            </div>
-            <div>
-              <h3 className="font-semibold">Add yourself as the root node</h3>
-              <p className="text-sm text-gray-600">Start by creating a node for yourself</p>
+        {isAdmin && (
+          <Card>
+            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+              <CardTitle className="text-sm font-medium">Quick Actions</CardTitle>
+              <UserPlus className="h-4 w-4 text-muted-foreground" />
+            </CardHeader>
+            <CardContent>
               <Link href="/dashboard/members/add">
-                <Button variant="link" className="px-0">
-                  Add yourself →
+                <Button className="w-full">
+                  <UserPlus className="mr-2 h-4 w-4" />
+                  Add Member
                 </Button>
               </Link>
+            </CardContent>
+          </Card>
+        )}
+      </div>
+
+      {isAdmin && (
+        <Card>
+          <CardHeader>
+            <CardTitle>Getting Started</CardTitle>
+          </CardHeader>
+          <CardContent className="space-y-4">
+            <div className="flex items-start space-x-4">
+              <div className="rounded-full bg-blue-100 p-2">
+                <span className="font-bold text-blue-600">1</span>
+              </div>
+              <div>
+                <h3 className="font-semibold">Add yourself as the root node</h3>
+                <p className="text-sm text-gray-600">Start by creating a node for yourself</p>
+                <Link href="/dashboard/members/add">
+                  <Button variant="link" className="px-0">
+                    Add yourself →
+                  </Button>
+                </Link>
+              </div>
             </div>
-          </div>
-          <div className="flex items-start space-x-4">
-            <div className="rounded-full bg-gray-100 p-2">
-              <span className="font-bold text-gray-400">2</span>
+            <div className="flex items-start space-x-4">
+              <div className="rounded-full bg-gray-100 p-2">
+                <span className="font-bold text-gray-400">2</span>
+              </div>
+              <div>
+                <h3 className="font-semibold text-gray-400">Add family members</h3>
+                <p className="text-sm text-gray-400">Add parents, siblings, and children</p>
+              </div>
             </div>
-            <div>
-              <h3 className="font-semibold text-gray-400">Add family members</h3>
-              <p className="text-sm text-gray-400">Add parents, siblings, and children</p>
+            <div className="flex items-start space-x-4">
+              <div className="rounded-full bg-gray-100 p-2">
+                <span className="font-bold text-gray-400">3</span>
+              </div>
+              <div>
+                <h3 className="font-semibold text-gray-400">View your tree</h3>
+                <p className="text-sm text-gray-400">Visualize your family tree</p>
+              </div>
             </div>
-          </div>
-          <div className="flex items-start space-x-4">
-            <div className="rounded-full bg-gray-100 p-2">
-              <span className="font-bold text-gray-400">3</span>
-            </div>
-            <div>
-              <h3 className="font-semibold text-gray-400">View your tree</h3>
-              <p className="text-sm text-gray-400">Visualize your family tree</p>
-            </div>
-          </div>
-        </CardContent>
-      </Card>
+          </CardContent>
+        </Card>
+      )}
     </div>
   )
 }
