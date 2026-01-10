@@ -1,6 +1,7 @@
 "use client"
 
 import { useState, useEffect, useTransition } from "react"
+import { createPortal } from "react-dom"
 import { usePathname, useRouter } from "next/navigation"
 import { Menu, X, TreePine, Users, Settings, Home, Loader2 } from "lucide-react"
 import { Button } from "@/components/ui/button"
@@ -14,10 +15,16 @@ interface MobileNavProps {
 
 export function MobileNav({ isAdmin, userName }: MobileNavProps) {
   const [isOpen, setIsOpen] = useState(false)
+  const [mounted, setMounted] = useState(false)
   const [navigatingTo, setNavigatingTo] = useState<string | null>(null)
   const [isPending, startTransition] = useTransition()
   const pathname = usePathname()
   const router = useRouter()
+
+  // Mount state for portal (SSR compatibility)
+  useEffect(() => {
+    setMounted(true)
+  }, [])
 
   // Reset navigation state when pathname changes
   useEffect(() => {
@@ -68,67 +75,70 @@ export function MobileNav({ isAdmin, userName }: MobileNavProps) {
         )}
       </Button>
 
-      {/* Mobile menu overlay */}
-      {isOpen && (
-        <>
-          {/* Backdrop */}
-          <div
-            className="fixed inset-0 z-40 bg-black/20 backdrop-blur-sm"
-            onClick={() => setIsOpen(false)}
-            aria-hidden="true"
-          />
+      {/* Mobile menu overlay - rendered via portal */}
+      {mounted &&
+        isOpen &&
+        createPortal(
+          <>
+            {/* Backdrop */}
+            <div
+              className="fixed inset-0 z-[9998] bg-black/20 backdrop-blur-sm"
+              onClick={() => setIsOpen(false)}
+              aria-hidden="true"
+            />
 
-          {/* Menu panel */}
-          <div className="fixed inset-y-0 right-0 z-50 w-64 bg-white shadow-xl">
-            <div className="flex h-16 items-center justify-between border-b px-4">
-              <span className="text-sm font-medium text-gray-900">{userName}</span>
-              <Button
-                variant="ghost"
-                size="icon"
-                onClick={() => setIsOpen(false)}
-                aria-label="Close menu"
-              >
-                <X className="h-5 w-5" />
-              </Button>
+            {/* Menu panel */}
+            <div className="fixed inset-y-0 right-0 z-[9999] flex w-64 flex-col border-l border-gray-200 bg-white shadow-xl">
+              <div className="flex h-16 flex-shrink-0 items-center justify-between border-b px-4">
+                <span className="text-sm font-medium text-gray-900">{userName}</span>
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  onClick={() => setIsOpen(false)}
+                  aria-label="Close menu"
+                >
+                  <X className="h-5 w-5" />
+                </Button>
+              </div>
+
+              <nav className="flex flex-1 flex-col space-y-1 overflow-y-auto p-4" role="menu">
+                {navItems.map((item) => {
+                  const Icon = item.icon
+                  const loading = isLoading(item.href)
+                  return (
+                    <button
+                      key={item.href}
+                      type="button"
+                      onClick={() => handleNavClick(item.href)}
+                      disabled={loading}
+                      className={cn(
+                        "flex items-center gap-3 rounded-lg px-3 py-2 text-left text-sm font-medium transition-colors",
+                        isActive(item.href)
+                          ? "bg-green-50 text-green-700"
+                          : "text-gray-700 hover:bg-gray-100",
+                        loading && "opacity-70"
+                      )}
+                      role="menuitem"
+                      aria-busy={loading}
+                    >
+                      {loading ? (
+                        <Loader2 className="h-5 w-5 animate-spin" />
+                      ) : (
+                        <Icon className="h-5 w-5" />
+                      )}
+                      {item.label}
+                    </button>
+                  )
+                })}
+
+                <div className="my-4 border-t" />
+
+                <SignoutDialog variant="mobile" />
+              </nav>
             </div>
-
-            <nav className="flex flex-col space-y-1 p-4" role="menu">
-              {navItems.map((item) => {
-                const Icon = item.icon
-                const loading = isLoading(item.href)
-                return (
-                  <button
-                    key={item.href}
-                    type="button"
-                    onClick={() => handleNavClick(item.href)}
-                    disabled={loading}
-                    className={cn(
-                      "flex items-center gap-3 rounded-lg px-3 py-2 text-left text-sm font-medium transition-colors",
-                      isActive(item.href)
-                        ? "bg-green-50 text-green-700"
-                        : "text-gray-700 hover:bg-gray-100",
-                      loading && "opacity-70"
-                    )}
-                    role="menuitem"
-                    aria-busy={loading}
-                  >
-                    {loading ? (
-                      <Loader2 className="h-5 w-5 animate-spin" />
-                    ) : (
-                      <Icon className="h-5 w-5" />
-                    )}
-                    {item.label}
-                  </button>
-                )
-              })}
-
-              <div className="my-4 border-t" />
-
-              <SignoutDialog variant="mobile" />
-            </nav>
-          </div>
-        </>
-      )}
+          </>,
+          document.body
+        )}
     </div>
   )
 }
