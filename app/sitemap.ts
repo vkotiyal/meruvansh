@@ -1,7 +1,8 @@
 import { MetadataRoute } from "next"
+import { env } from "@/lib/env"
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = process.env.NEXTAUTH_URL || "http://localhost:3000"
+  const baseUrl = env.NEXT_PUBLIC_APP_URL
 
   return [
     {
