@@ -12,7 +12,7 @@
 [![TailwindCSS](https://img.shields.io/badge/Tailwind-3.0-38B2AC?style=for-the-badge&logo=tailwind-css)](https://tailwindcss.com/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=for-the-badge)](https://opensource.org/licenses/MIT)
 
-[Live Demo](#) · [Report Bug](https://github.com/vkotiyal/vanshvriksh/issues) · [Request Feature](https://github.com/vkotiyal/vanshvriksh/issues)
+[Live Demo](https://vanshvriksh.vercel.app/) · [Report Bug](https://github.com/vkotiyal/vanshvriksh/issues) · [Request Feature](https://github.com/vkotiyal/vanshvriksh/issues)
 
 </div>
 
