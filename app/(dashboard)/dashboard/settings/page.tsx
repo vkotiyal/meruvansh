@@ -99,10 +99,10 @@ export default function SettingsPage() {
       />
 
       <div className="grid gap-4 sm:grid-cols-3">
-        <Card className="border-l-4 border-l-blue-500">
+        <Card className="border-l-4 border-l-green-600">
           <CardContent className="flex items-start gap-3 p-4">
-            <div className="rounded-lg bg-blue-50 p-2">
-              <Key className="h-5 w-5 text-blue-600" />
+            <div className="rounded-lg bg-green-50 p-2">
+              <Key className="h-5 w-5 text-green-700" />
             </div>
             <div>
               <h3 className="text-sm font-semibold">Create Code</h3>

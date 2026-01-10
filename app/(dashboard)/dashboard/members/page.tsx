@@ -66,14 +66,14 @@ export default async function MembersPage() {
           {nodes.map((node) => (
             <Card
               key={node.id}
-              className="group transition-all hover:border-blue-200 hover:shadow-lg"
+              className="group transition-all hover:border-green-200 hover:shadow-lg"
             >
               <CardContent className="p-6">
                 <div className="flex items-start space-x-4">
-                  <Avatar className="h-14 w-14 ring-2 ring-transparent transition-all group-hover:ring-blue-100">
+                  <Avatar className="h-14 w-14 ring-2 ring-transparent transition-all group-hover:ring-green-100">
                     <AvatarImage src={node.profilePicture || undefined} />
-                    <AvatarFallback className="bg-blue-50">
-                      <User className="h-6 w-6 text-blue-600" />
+                    <AvatarFallback className="bg-green-50">
+                      <User className="h-6 w-6 text-green-700" />
                     </AvatarFallback>
                   </Avatar>
                   <div className="min-w-0 flex-1">

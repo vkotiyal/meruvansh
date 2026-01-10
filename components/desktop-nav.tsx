@@ -9,7 +9,7 @@ interface DesktopNavProps {
 
 export function DesktopNav({ isAdmin }: DesktopNavProps) {
   const linkClassName =
-    "inline-flex items-center border-b-2 border-transparent px-1 pt-1 text-sm font-medium text-gray-700 transition-colors hover:border-gray-300 hover:text-gray-900"
+    "inline-flex items-center border-b-2 border-transparent px-1 pt-1 text-sm font-medium text-gray-600 transition-colors hover:border-green-300 hover:text-green-700"
 
   return (
     <div className="hidden space-x-6 sm:ml-8 sm:flex lg:space-x-8" role="menubar">

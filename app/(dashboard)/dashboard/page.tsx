@@ -82,8 +82,8 @@ export default async function DashboardPage() {
       {isAdmin && !hasMembers && (
         <Card className="border-dashed">
           <CardContent className="flex flex-col items-center justify-center py-8 text-center">
-            <div className="mb-4 rounded-full bg-blue-50 p-3">
-              <UserPlus className="h-6 w-6 text-blue-600" />
+            <div className="mb-4 rounded-full bg-green-50 p-3">
+              <UserPlus className="h-6 w-6 text-green-700" />
             </div>
             <h3 className="mb-1 text-lg font-semibold">Start Building Your Tree</h3>
             <p className="mb-4 text-sm text-gray-500">
@@ -99,10 +99,10 @@ export default async function DashboardPage() {
       {hasMembers && (
         <div className="grid gap-4 sm:grid-cols-2">
           <Link href="/dashboard/tree" className="group">
-            <Card className="transition-all hover:border-blue-200 hover:shadow-md">
+            <Card className="transition-all hover:border-green-200 hover:shadow-md">
               <CardContent className="flex items-center gap-4 p-6">
-                <div className="rounded-lg bg-blue-50 p-3 transition-colors group-hover:bg-blue-100">
-                  <TreePine className="h-6 w-6 text-blue-600" />
+                <div className="rounded-lg bg-green-50 p-3 transition-colors group-hover:bg-green-100">
+                  <TreePine className="h-6 w-6 text-green-700" />
                 </div>
                 <div>
                   <h3 className="font-semibold">View Tree</h3>
@@ -113,10 +113,10 @@ export default async function DashboardPage() {
           </Link>
 
           <Link href="/dashboard/members" className="group">
-            <Card className="transition-all hover:border-blue-200 hover:shadow-md">
+            <Card className="transition-all hover:border-green-200 hover:shadow-md">
               <CardContent className="flex items-center gap-4 p-6">
-                <div className="rounded-lg bg-blue-50 p-3 transition-colors group-hover:bg-blue-100">
-                  <Users className="h-6 w-6 text-blue-600" />
+                <div className="rounded-lg bg-green-50 p-3 transition-colors group-hover:bg-green-100">
+                  <Users className="h-6 w-6 text-green-700" />
                 </div>
                 <div>
                   <h3 className="font-semibold">View Members</h3>

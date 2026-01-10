@@ -4,6 +4,7 @@ import { useState } from "react"
 import { signIn } from "next-auth/react"
 import { useRouter } from "next/navigation"
 import Link from "next/link"
+import { TreePine } from "lucide-react"
 import { LoadingButton } from "@/components/ui/loading-button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
@@ -66,9 +67,12 @@ export default function LoginPage() {
   }
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-gray-50 px-4">
-      <Card className="w-full max-w-md">
-        <CardHeader className="space-y-1">
+    <div className="flex min-h-screen items-center justify-center bg-gradient-to-b from-green-50 to-background px-4">
+      <Card className="w-full max-w-md shadow-lg">
+        <CardHeader className="space-y-1 text-center">
+          <div className="mx-auto mb-2 flex h-12 w-12 items-center justify-center rounded-full bg-green-100">
+            <TreePine className="h-6 w-6 text-green-700" />
+          </div>
           <CardTitle className="text-2xl font-bold">Welcome back</CardTitle>
           <CardDescription>
             {mode === "admin"
@@ -165,7 +169,7 @@ export default function LoginPage() {
             {mode === "admin" && (
               <p className="text-center text-sm text-gray-600">
                 Don&apos;t have an account?{" "}
-                <Link href="/signup" className="text-blue-600 hover:underline">
+                <Link href="/signup" className="text-primary hover:underline">
                   Sign up
                 </Link>
               </p>

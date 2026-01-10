@@ -171,8 +171,8 @@ export function CreateViewerAccessDialog({
               <p className="text-xs text-gray-500">Minimum 6 characters</p>
             </div>
 
-            <div className="rounded-md bg-blue-50 p-3">
-              <p className="text-sm text-blue-700">
+            <div className="rounded-md bg-green-50 p-3">
+              <p className="text-sm text-green-700">
                 <strong>Important:</strong> Share this code and password securely with family
                 members. They&apos;ll use it to login with read-only access.
               </p>
