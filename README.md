@@ -5,14 +5,14 @@
 **A modern, secure, and intuitive family tree management platform built with Next.js 14**
 
 [![CI](https://img.shields.io/github/actions/workflow/status/vkotiyal/meruvansh/ci.yml?style=for-the-badge&logo=github&label=CI)](https://github.com/vkotiyal/meruvansh/actions/workflows/ci.yml)
-<a href="https://nextjs.org/" target="_blank"><img src="https://img.shields.io/badge/Next.js-14-black?style=for-the-badge&logo=next.js" alt="Next.js"></a>
-<a href="https://www.typescriptlang.org/" target="_blank"><img src="https://img.shields.io/badge/TypeScript-5.0-blue?style=for-the-badge&logo=typescript" alt="TypeScript"></a>
-<a href="https://www.prisma.io/" target="_blank"><img src="https://img.shields.io/badge/Prisma-5.0-2D3748?style=for-the-badge&logo=prisma" alt="Prisma"></a>
-<a href="https://www.postgresql.org/" target="_blank"><img src="https://img.shields.io/badge/PostgreSQL-16-316192?style=for-the-badge&logo=postgresql" alt="PostgreSQL"></a>
-<a href="https://tailwindcss.com/" target="_blank"><img src="https://img.shields.io/badge/Tailwind-3.0-38B2AC?style=for-the-badge&logo=tailwind-css" alt="TailwindCSS"></a>
-<a href="https://opensource.org/licenses/MIT" target="_blank"><img src="https://img.shields.io/badge/License-MIT-yellow.svg?style=for-the-badge" alt="License: MIT"></a>
+[![Next.js](https://img.shields.io/badge/Next.js-14-black?style=for-the-badge&logo=next.js)](https://nextjs.org/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5.0-blue?style=for-the-badge&logo=typescript)](https://www.typescriptlang.org/)
+[![Prisma](https://img.shields.io/badge/Prisma-5.0-2D3748?style=for-the-badge&logo=prisma)](https://www.prisma.io/)
+[![PostgreSQL](https://img.shields.io/badge/PostgreSQL-16-316192?style=for-the-badge&logo=postgresql)](https://www.postgresql.org/)
+[![TailwindCSS](https://img.shields.io/badge/Tailwind-3.0-38B2AC?style=for-the-badge&logo=tailwind-css)](https://tailwindcss.com/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=for-the-badge)](https://opensource.org/licenses/MIT)
 
-<a href="https://meruvansh.vercel.app/" target="_blank">Live Demo</a> · [Report Bug](https://github.com/vkotiyal/meruvansh/issues) · [Request Feature](https://github.com/vkotiyal/meruvansh/issues)
+[Live Demo](https://meruvansh.vercel.app/) · [Report Bug](https://github.com/vkotiyal/meruvansh/issues) · [Request Feature](https://github.com/vkotiyal/meruvansh/issues)
 
 </div>
 
@@ -86,36 +86,36 @@ This project demonstrates proficiency in:
 
 ### Frontend
 
-- **Framework**: <a href="https://nextjs.org/" target="_blank">Next.js 14</a> (App Router)
-- **Language**: <a href="https://www.typescriptlang.org/" target="_blank">TypeScript</a>
-- **Styling**: <a href="https://tailwindcss.com/" target="_blank">Tailwind CSS</a>
-- **UI Components**: <a href="https://ui.shadcn.com/" target="_blank">Shadcn/ui</a> + <a href="https://www.radix-ui.com/" target="_blank">Radix UI</a>
-- **Visualization**: <a href="https://reactflow.dev/" target="_blank">React Flow</a>
+- **Framework**: [Next.js 14](https://nextjs.org/) (App Router)
+- **Language**: [TypeScript](https://www.typescriptlang.org/)
+- **Styling**: [Tailwind CSS](https://tailwindcss.com/)
+- **UI Components**: [Shadcn/ui](https://ui.shadcn.com/) + [Radix UI](https://www.radix-ui.com/)
+- **Visualization**: [React Flow](https://reactflow.dev/)
 - **State Management**: React Hooks + Context API
-- **Forms**: <a href="https://react-hook-form.com/" target="_blank">React Hook Form</a> + <a href="https://zod.dev/" target="_blank">Zod</a>
+- **Forms**: [React Hook Form](https://react-hook-form.com/) + [Zod](https://zod.dev/)
 
 ### Backend
 
-- **Runtime**: <a href="https://nodejs.org/" target="_blank">Node.js 20 LTS</a>
+- **Runtime**: [Node.js 20 LTS](https://nodejs.org/)
 - **API**: Next.js API Routes
-- **Authentication**: <a href="https://next-auth.js.org/" target="_blank">NextAuth.js</a>
-- **ORM**: <a href="https://www.prisma.io/" target="_blank">Prisma</a>
-- **Validation**: <a href="https://zod.dev/" target="_blank">Zod</a>
+- **Authentication**: [NextAuth.js](https://next-auth.js.org/)
+- **ORM**: [Prisma](https://www.prisma.io/)
+- **Validation**: [Zod](https://zod.dev/)
 
 ### Database & Storage
 
-- **Database**: <a href="https://www.postgresql.org/" target="_blank">PostgreSQL 16</a> (<a href="https://neon.tech/" target="_blank">Neon.tech</a>)
-- **Image Storage**: <a href="https://cloudinary.com/" target="_blank">Cloudinary</a>
+- **Database**: [PostgreSQL 16](https://www.postgresql.org/) ([Neon.tech](https://neon.tech/))
+- **Image Storage**: [Cloudinary](https://cloudinary.com/)
 
 ### DevOps & Tools
 
-- **Deployment**: <a href="https://vercel.com/" target="_blank">Vercel</a>
-- **CI/CD**: <a href="https://github.com/features/actions" target="_blank">GitHub Actions</a>
+- **Deployment**: [Vercel](https://vercel.com/)
+- **CI/CD**: [GitHub Actions](https://github.com/features/actions)
 - **Version Control**: Git + GitHub
 - **Package Manager**: npm
 - **Linting**: ESLint + Prettier
 - **Git Hooks**: Husky + lint-staged
-- **Commit Convention**: <a href="https://www.conventionalcommits.org/" target="_blank">Conventional Commits</a>
+- **Commit Convention**: [Conventional Commits](https://www.conventionalcommits.org/)
 
 ---
 
@@ -172,14 +172,14 @@ This project demonstrates proficiency in:
 
 ### Database Setup (Neon.tech)
 
-1. Sign up at <a href="https://neon.tech" target="_blank">neon.tech</a>
+1. Sign up at [neon.tech](https://neon.tech)
 2. Create a new project
 3. Copy the connection string
 4. Add to `.env.local` as `DATABASE_URL`
 
 ### Cloudinary Setup
 
-1. Sign up at <a href="https://cloudinary.com" target="_blank">cloudinary.com</a>
+1. Sign up at [cloudinary.com](https://cloudinary.com)
 2. Go to Dashboard → Settings → Upload
 3. Create upload preset named "meruvansh" (unsigned)
 4. Copy Cloud Name, API Key, and API Secret
@@ -343,7 +343,7 @@ Contributions are welcome! We appreciate all contributions, from bug reports to 
 
 1. Fork the repository
 2. Create a feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit changes using <a href="https://www.conventionalcommits.org/" target="_blank">Conventional Commits</a>
+3. Commit changes using [Conventional Commits](https://www.conventionalcommits.org/)
 4. Push to the branch (`git push origin feature/amazing-feature`)
 5. Open a Pull Request using our [PR template](.github/pull_request_template.md)
 
@@ -366,19 +366,19 @@ This project is licensed under the **MIT License** - see the [LICENSE](LICENSE) 
 
 Vaibhav Kotiyal
 
-- GitHub: <a href="https://github.com/vkotiyal" target="_blank">@vkotiyal</a>
-- LinkedIn: <a href="https://linkedin.com/in/vkotiyal" target="_blank">Vaibhav Kotiyal</a>
-- Portfolio: <a href="https://vaibhavkotiyal.com" target="_blank">vaibhavkotiyal.com</a>
+- GitHub: [@vkotiyal](https://github.com/vkotiyal)
+- LinkedIn: [Vaibhav Kotiyal](https://linkedin.com/in/vkotiyal)
+- Portfolio: [vaibhavkotiyal.com](https://vaibhavkotiyal.com)
 
 ---
 
 ## 🙏 Acknowledgments
 
-- <a href="https://nextjs.org/" target="_blank">Next.js</a> team for the amazing framework
-- <a href="https://vercel.com/" target="_blank">Vercel</a> for free hosting
-- <a href="https://ui.shadcn.com/" target="_blank">Shadcn</a> for beautiful UI components
-- <a href="https://www.prisma.io/" target="_blank">Prisma</a> for the excellent ORM
-- <a href="https://neon.tech/" target="_blank">Neon</a> for serverless PostgreSQL
+- [Next.js](https://nextjs.org/) team for the amazing framework
+- [Vercel](https://vercel.com/) for free hosting
+- [Shadcn](https://ui.shadcn.com/) for beautiful UI components
+- [Prisma](https://www.prisma.io/) for the excellent ORM
+- [Neon](https://neon.tech/) for serverless PostgreSQL
 
 ---
 
