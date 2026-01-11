@@ -1,6 +1,6 @@
 # Deployment Guide
 
-This guide covers deploying VanshVriksh to production using Vercel.
+This guide covers deploying MeruVansh to production using Vercel.
 
 ## Prerequisites
 
@@ -25,14 +25,14 @@ The project includes automated CI checks that run on every push and pull request
 
 **Workflow Status**
 
-View workflow runs at: `https://github.com/vkotiyal/vanshvriksh/actions`
+View workflow runs at: `https://github.com/vkotiyal/meruvansh/actions`
 
 ### Adding Status Badge to README
 
 Add this to your README.md:
 
 ```markdown
-[![CI](https://github.com/vkotiyal/vanshvriksh/actions/workflows/ci.yml/badge.svg)](https://github.com/vkotiyal/vanshvriksh/actions/workflows/ci.yml)
+[![CI](https://github.com/vkotiyal/meruvansh/actions/workflows/ci.yml/badge.svg)](https://github.com/vkotiyal/meruvansh/actions/workflows/ci.yml)
 ```
 
 ## Deploying to Vercel
@@ -46,7 +46,7 @@ git add .
 git commit -m "chore: prepare for deployment"
 
 # Add remote and push
-git remote add origin https://github.com/vkotiyal/vanshvriksh.git
+git remote add origin https://github.com/vkotiyal/meruvansh.git
 git branch -M main
 git push -u origin main
 ```
@@ -73,7 +73,7 @@ git push -u origin main
 
 1. Go to [Vercel Dashboard](https://vercel.com/new)
 2. Click **Import Project**
-3. Select your GitHub repository: `vanshvriksh`
+3. Select your GitHub repository: `meruvansh`
 4. Configure project:
    - **Framework Preset**: Next.js (auto-detected)
    - **Build Command**: `npm run build`

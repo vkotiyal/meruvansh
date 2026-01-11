@@ -1,6 +1,6 @@
-# Contributing to VanshVriksh
+# Contributing to MeruVansh
 
-Thank you for your interest in contributing to VanshVriksh! This document provides guidelines and instructions for contributing.
+Thank you for your interest in contributing to MeruVansh! This document provides guidelines and instructions for contributing.
 
 ## Code of Conduct
 
@@ -12,7 +12,7 @@ By participating in this project, you agree to maintain a respectful and inclusi
 
 Before creating a bug report:
 
-1. Check the [existing issues](https://github.com/vkotiyal/vanshvriksh/issues) to avoid duplicates
+1. Check the [existing issues](https://github.com/vkotiyal/meruvansh/issues) to avoid duplicates
 2. Gather relevant information about the bug
 3. Create a detailed bug report using our [bug report template](.github/ISSUE_TEMPLATE/bug_report.md)
 
@@ -20,7 +20,7 @@ Before creating a bug report:
 
 We welcome feature suggestions! Please:
 
-1. Check [existing feature requests](https://github.com/vkotiyal/vanshvriksh/issues?q=is%3Aissue+label%3Aenhancement)
+1. Check [existing feature requests](https://github.com/vkotiyal/meruvansh/issues?q=is%3Aissue+label%3Aenhancement)
 2. Use our [feature request template](.github/ISSUE_TEMPLATE/feature_request.md)
 3. Provide clear use cases and examples
 
@@ -35,8 +35,8 @@ We welcome feature suggestions! Please:
 2. **Clone your fork**
 
    ```bash
-   git clone https://github.com/vkotiyal/vanshvriksh.git
-   cd vanshvriksh
+   git clone https://github.com/vkotiyal/meruvansh.git
+   cd meruvansh
    ```
 
 3. **Install dependencies**
@@ -60,7 +60,7 @@ We welcome feature suggestions! Please:
    brew services start postgresql@16
 
    # Create database
-   createdb vanshvriksh
+   createdb meruvansh
 
    # Run migrations
    npx prisma generate
@@ -293,8 +293,8 @@ While we don't have a full test suite yet, please:
 
 ## Getting Help
 
-- **Questions**: Open a [GitHub Discussion](https://github.com/vkotiyal/vanshvriksh/discussions)
-- **Bugs**: Create an [Issue](https://github.com/vkotiyal/vanshvriksh/issues)
+- **Questions**: Open a [GitHub Discussion](https://github.com/vkotiyal/meruvansh/discussions)
+- **Bugs**: Create an [Issue](https://github.com/vkotiyal/meruvansh/issues)
 - **Chat**: Join our [Discord](#) (if available)
 
 ## Recognition
@@ -311,4 +311,4 @@ By contributing, you agree that your contributions will be licensed under the MI
 
 ---
 
-Thank you for contributing to VanshVriksh! 🌳
+Thank you for contributing to MeruVansh! 🌳

@@ -2,7 +2,7 @@
 
 ## Supported Versions
 
-Currently supported versions of VanshVriksh:
+Currently supported versions of MeruVansh:
 
 | Version | Supported          |
 | ------- | ------------------ |
@@ -35,7 +35,7 @@ Include:
 
 ## Security Measures
 
-VanshVriksh implements the following security practices:
+MeruVansh implements the following security practices:
 
 ### Authentication & Authorization
 
@@ -141,7 +141,7 @@ Security patches will be released as:
 
 ## Attribution
 
-We appreciate security researchers who help make VanshVriksh safer. With your permission, we'll acknowledge your contribution in:
+We appreciate security researchers who help make MeruVansh safer. With your permission, we'll acknowledge your contribution in:
 
 - Security advisory
 - Release notes

@@ -1,6 +1,6 @@
 # Cloudinary Setup Guide
 
-This guide will help you configure Cloudinary for profile picture uploads in VanshVriksh.
+This guide will help you configure Cloudinary for profile picture uploads in MeruVansh.
 
 ## Why Cloudinary?
 

@@ -4,7 +4,7 @@
 
 **A modern, secure, and intuitive family tree management platform built with Next.js 14**
 
-[![CI](https://img.shields.io/github/actions/workflow/status/vkotiyal/vanshvriksh/ci.yml?style=for-the-badge&logo=github&label=CI)](https://github.com/vkotiyal/vanshvriksh/actions/workflows/ci.yml)
+[![CI](https://img.shields.io/github/actions/workflow/status/vkotiyal/meruvansh/ci.yml?style=for-the-badge&logo=github&label=CI)](https://github.com/vkotiyal/meruvansh/actions/workflows/ci.yml)
 [![Next.js](https://img.shields.io/badge/Next.js-14-black?style=for-the-badge&logo=next.js)](https://nextjs.org/)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.0-blue?style=for-the-badge&logo=typescript)](https://www.typescriptlang.org/)
 [![Prisma](https://img.shields.io/badge/Prisma-5.0-2D3748?style=for-the-badge&logo=prisma)](https://www.prisma.io/)
@@ -12,7 +12,7 @@
 [![TailwindCSS](https://img.shields.io/badge/Tailwind-3.0-38B2AC?style=for-the-badge&logo=tailwind-css)](https://tailwindcss.com/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=for-the-badge)](https://opensource.org/licenses/MIT)
 
-[Live Demo](https://vanshvriksh.vercel.app/) · [Report Bug](https://github.com/vkotiyal/vanshvriksh/issues) · [Request Feature](https://github.com/vkotiyal/vanshvriksh/issues)
+[Live Demo](https://vanshvriksh.vercel.app/) · [Report Bug](https://github.com/vkotiyal/meruvansh/issues) · [Request Feature](https://github.com/vkotiyal/meruvansh/issues)
 
 </div>
 
@@ -132,8 +132,8 @@ This project demonstrates proficiency in:
 1. **Clone the repository**
 
    ```bash
-   git clone https://github.com/vkotiyal/vanshvriksh.git
-   cd vanshvriksh
+   git clone https://github.com/vkotiyal/meruvansh.git
+   cd meruvansh
    ```
 
 2. **Install dependencies**
@@ -319,7 +319,7 @@ npm run test:coverage
 3. Add environment variables
 4. Deploy!
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/vkotiyal/vanshvriksh)
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/vkotiyal/meruvansh)
 
 ### Manual Deployment
 
