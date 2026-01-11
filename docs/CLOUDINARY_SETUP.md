@@ -27,39 +27,51 @@ After logging in to your Cloudinary dashboard:
 2. You'll see your **Cloud Name**, **API Key**, and **API Secret**
 3. Copy these values - you'll need them for your `.env.local` file
 
-### 3. Create an Upload Preset
+### 3. Create Upload Presets
 
-An upload preset defines how images are handled when uploaded:
+Create separate presets for development and production to keep uploads organized:
 
 1. Go to **Settings** → **Upload**
 2. Scroll down to **Upload presets**
-3. Click **Add upload preset**
-4. Configure the preset:
-   - **Preset name**: `vanshvriksh-profiles` (or any name you prefer)
-   - **Signing Mode**: **Unsigned** (allows client-side uploads)
-   - **Folder**: `vanshvriksh/profiles` (optional, organizes uploads)
-   - **Allowed formats**: `jpg`, `png`, `webp`, `gif`
-   - **Transformation**: Set to limit file size if needed
-     - Example: `c_limit,w_800,h_800,q_auto`
-5. Click **Save**
-6. Copy the **Upload preset name**
+3. Click **Add upload preset** and create two presets:
+
+**Development preset:**
+
+- **Preset name**: `meruvansh-dev`
+- **Signing Mode**: **Unsigned** (allows client-side uploads)
+- **Folder**: `meruvansh/dev`
+- **Allowed formats**: `jpg`, `png`, `webp`, `gif`
+
+**Production preset:**
+
+- **Preset name**: `meruvansh-prod`
+- **Signing Mode**: **Unsigned**
+- **Folder**: `meruvansh/prod`
+- **Allowed formats**: `jpg`, `png`, `webp`, `gif`
+
+4. Click **Save** for each preset
 
 ### 4. Configure Environment Variables
 
-Add these to your `.env.local` file:
+**Local development** (`.env.local`):
 
 ```env
 # Cloudinary (Image Upload)
 NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME="your-cloud-name"
-NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET="vanshvriksh-profiles"
+NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET="meruvansh-dev"
 CLOUDINARY_API_KEY="your-api-key"
 CLOUDINARY_API_SECRET="your-api-secret"
+```
+
+**Production** (Vercel Dashboard → Environment Variables):
+
+```env
+NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET="meruvansh-prod"
 ```
 
 Replace:
 
 - `your-cloud-name` with your Cloud Name from step 2
-- `vanshvriksh-profiles` with your upload preset name from step 3
 - `your-api-key` with your API Key from step 2
 - `your-api-secret` with your API Secret from step 2
 
@@ -91,7 +103,7 @@ For production, consider implementing signed uploads for better security.
 
 ```
 Signing Mode: Unsigned
-Folder: vanshvriksh/profiles
+Folder: meruvansh/dev (or meruvansh/prod for production)
 Allowed formats: jpg, png, webp
 Max file size: 5 MB
 Transformation: c_limit,w_800,h_800,q_auto:good
