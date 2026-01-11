@@ -28,7 +28,7 @@ export default async function DashboardLayout({ children }: { children: React.Re
             <div className="flex">
               <Link href="/dashboard" className="flex flex-shrink-0 items-center">
                 <TreePine className="h-7 w-7 text-green-700 sm:h-8 sm:w-8" aria-hidden="true" />
-                <span className="ml-2 text-lg font-bold text-gray-900 sm:text-xl">VanshVriksh</span>
+                <span className="ml-2 text-lg font-bold text-gray-900 sm:text-xl">MeruVansh</span>
               </Link>
               <DesktopNav isAdmin={isAdmin} />
             </div>

@@ -9,7 +9,7 @@ export default function Loading() {
         >
           <span className="sr-only">Loading...</span>
         </div>
-        <p className="mt-4 text-sm text-gray-600">Loading VanshVriksh...</p>
+        <p className="mt-4 text-sm text-gray-600">Loading MeruVansh...</p>
       </div>
     </div>
   )

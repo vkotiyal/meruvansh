@@ -8,11 +8,11 @@ export default function HomePage() {
           <div className="rounded-full bg-green-100 p-4">
             <TreePine className="h-12 w-12 text-green-700" />
           </div>
-          <h1 className="text-5xl font-bold tracking-tight text-gray-900 sm:text-6xl">
-            VanshVriksh
-          </h1>
+          <h1 className="text-5xl font-bold tracking-tight text-gray-900 sm:text-6xl">MeruVansh</h1>
           <p className="mx-auto max-w-lg text-lg text-gray-600 sm:text-xl">
-            Preserve your roots. Connect generations. Create and manage your family tree with ease.
+            Preserve your roots. Connect generations.
+            <br />
+            Create and manage your family tree with ease.
           </p>
         </div>
         <div className="flex flex-col justify-center gap-4 pt-4 sm:flex-row">

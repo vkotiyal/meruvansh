@@ -1,4 +1,4 @@
-# 🌳 VanshVriksh - Family Tree Management Platform
+# 🌳 MeruVansh - Family Tree Management Platform
 
 <div align="center">
 
@@ -33,7 +33,7 @@
 
 ## 🎯 About
 
-**VanshVriksh** (Sanskrit: वंशवृक्ष, meaning "Family Tree") is a full-stack web application that enables users to create, manage, and visualize their family genealogy. Built with modern web technologies, it emphasizes **security**, **performance**, and **user experience**.
+**MeruVansh** (मेरु वंश — "Meru" is Garhwali for "My", "Vansh" means "Lineage") is a full-stack web application that enables users to create, manage, and visualize their family genealogy. Built with modern web technologies, it emphasizes **security**, **performance**, and **user experience**.
 
 ### Why This Project?
 
@@ -181,7 +181,7 @@ This project demonstrates proficiency in:
 
 1. Sign up at [cloudinary.com](https://cloudinary.com)
 2. Go to Dashboard → Settings → Upload
-3. Create upload preset named "vanshvriksh" (unsigned)
+3. Create upload preset named "meruvansh" (unsigned)
 4. Copy Cloud Name, API Key, and API Secret
 5. Add to `.env.local`
 
@@ -190,7 +190,7 @@ This project demonstrates proficiency in:
 ## 📁 Project Structure
 
 ```
-vanshvriksh/
+meruvansh/
 ├── app/              # Next.js App Router (pages, layouts, API routes)
 ├── components/       # React components (UI, features, providers)
 ├── lib/              # Utilities (auth, database, env config)

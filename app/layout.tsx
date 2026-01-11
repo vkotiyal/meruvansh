@@ -15,11 +15,11 @@ const inter = Inter({
 export const metadata: Metadata = {
   metadataBase: new URL(env.NEXT_PUBLIC_APP_URL),
   title: {
-    default: "VanshVriksh - Family Tree Management Platform",
-    template: "%s | VanshVriksh",
+    default: "MeruVansh - Family Tree Management Platform",
+    template: "%s | MeruVansh",
   },
   description:
-    "Create, manage, and visualize your family tree with VanshVriksh. A modern, secure platform for preserving your family history and genealogy.",
+    "Create, manage, and visualize your family tree with MeruVansh. A modern, secure platform for preserving your family history and genealogy.",
   keywords: [
     "family tree",
     "genealogy",
@@ -48,28 +48,28 @@ export const metadata: Metadata = {
     type: "website",
     locale: "en_US",
     url: "/",
-    title: "VanshVriksh - Family Tree Management Platform",
+    title: "MeruVansh - Family Tree Management Platform",
     description: "Create, manage, and visualize your family tree with ease",
-    siteName: "VanshVriksh",
+    siteName: "MeruVansh",
     images: [
       {
         url: "/og-image.png",
         width: 1200,
         height: 630,
-        alt: "VanshVriksh - Family Tree Platform",
+        alt: "MeruVansh - Family Tree Platform",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "VanshVriksh - Family Tree Management Platform",
+    title: "MeruVansh - Family Tree Management Platform",
     description: "Create, manage, and visualize your family tree with ease",
     images: ["/og-image.png"],
     creator: "@vkotiyal",
   },
   icons: {
-    icon: "/favicon.ico",
-    apple: "/apple-touch-icon.png",
+    icon: [{ url: "/icon-192.svg", type: "image/svg+xml" }],
+    apple: [{ url: "/icon-192.svg", type: "image/svg+xml" }],
   },
   manifest: "/site.webmanifest",
 }

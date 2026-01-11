@@ -51,7 +51,7 @@ export function SignoutDialog({ trigger, variant = "default" }: SignoutDialogPro
       <AlertDialogTrigger asChild>{trigger || defaultTrigger}</AlertDialogTrigger>
       <AlertDialogContent>
         <AlertDialogHeader>
-          <AlertDialogTitle>Sign out of VanshVriksh?</AlertDialogTitle>
+          <AlertDialogTitle>Sign out of MeruVansh?</AlertDialogTitle>
           <AlertDialogDescription>
             You will need to sign in again to access your family tree.
           </AlertDialogDescription>
