@@ -17,6 +17,9 @@ export async function GET(_request: Request, { params }: { params: { id: string 
       include: {
         parent: true,
         children: true,
+        spouse: {
+          select: { id: true, name: true },
+        },
       },
     })
 
@@ -65,6 +68,7 @@ export async function PUT(request: Request, { params }: { params: { id: string }
       bio,
       profilePicture,
       parentId,
+      spouseId,
     } = body
 
     // Get node
@@ -81,22 +85,73 @@ export async function PUT(request: Request, { params }: { params: { id: string }
       return NextResponse.json({ error: "Forbidden" }, { status: 403 })
     }
 
-    // Update node
-    const node = await prisma.node.update({
-      where: { id: params.id },
-      data: {
-        name,
-        nickname,
-        email,
-        phone,
-        birthDate: birthDate ? new Date(birthDate) : null,
-        deathDate: deathDate ? new Date(deathDate) : null,
-        gender,
-        address,
-        bio,
-        profilePicture,
-        parentId: parentId || null,
-      },
+    // Validate new spouse if provided
+    if (spouseId) {
+      // Cannot be own spouse
+      if (spouseId === params.id) {
+        return NextResponse.json({ error: "Cannot set self as spouse" }, { status: 400 })
+      }
+
+      const potentialSpouse = await prisma.node.findUnique({
+        where: { id: spouseId },
+      })
+
+      if (!potentialSpouse) {
+        return NextResponse.json({ error: "Spouse not found" }, { status: 400 })
+      }
+
+      if (potentialSpouse.treeId !== existingNode.treeId) {
+        return NextResponse.json({ error: "Spouse must belong to the same tree" }, { status: 400 })
+      }
+
+      // Check if potential spouse already has a different spouse
+      if (potentialSpouse.spouseId && potentialSpouse.spouseId !== params.id) {
+        return NextResponse.json({ error: "Selected person already has a spouse" }, { status: 400 })
+      }
+    }
+
+    // Update node with spouse (use transaction for bidirectional sync)
+    const node = await prisma.$transaction(async (tx) => {
+      const oldSpouseId = existingNode.spouseId
+      const newSpouseId = spouseId || null
+
+      // If spouse is changing
+      if (oldSpouseId !== newSpouseId) {
+        // Clear old spouse's reference
+        if (oldSpouseId) {
+          await tx.node.update({
+            where: { id: oldSpouseId },
+            data: { spouseId: null },
+          })
+        }
+
+        // Set new spouse's reference (bidirectional sync)
+        if (newSpouseId) {
+          await tx.node.update({
+            where: { id: newSpouseId },
+            data: { spouseId: params.id },
+          })
+        }
+      }
+
+      // Update the node
+      return tx.node.update({
+        where: { id: params.id },
+        data: {
+          name,
+          nickname,
+          email,
+          phone,
+          birthDate: birthDate ? new Date(birthDate) : null,
+          deathDate: deathDate ? new Date(deathDate) : null,
+          gender,
+          address,
+          bio,
+          profilePicture,
+          parentId: parentId || null,
+          spouseId: newSpouseId,
+        },
+      })
     })
 
     return NextResponse.json({ node })
@@ -145,9 +200,20 @@ export async function DELETE(_request: Request, { params }: { params: { id: stri
       )
     }
 
-    // Delete node
-    await prisma.node.delete({
-      where: { id: params.id },
+    // Delete node (use transaction to clear spouse reference first)
+    await prisma.$transaction(async (tx) => {
+      // Clear spouse's reference before deleting
+      if (node.spouseId) {
+        await tx.node.update({
+          where: { id: node.spouseId },
+          data: { spouseId: null },
+        })
+      }
+
+      // Delete the node
+      await tx.node.delete({
+        where: { id: params.id },
+      })
     })
 
     return NextResponse.json({ message: "Node deleted successfully" })

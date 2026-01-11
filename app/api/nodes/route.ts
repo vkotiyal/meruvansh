@@ -18,6 +18,11 @@ export async function GET() {
       include: {
         nodes: {
           orderBy: { createdAt: "asc" },
+          include: {
+            spouse: {
+              select: { id: true, name: true },
+            },
+          },
         },
       },
     })
@@ -61,6 +66,7 @@ export async function POST(request: Request) {
       bio,
       parentId,
       profilePicture,
+      spouseId,
     } = body
 
     // Validation
@@ -77,21 +83,54 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: "Tree not found" }, { status: 404 })
     }
 
-    // Create node
-    const node = await prisma.node.create({
-      data: {
-        treeId: tree.id,
-        name,
-        nickname,
-        email,
-        phone,
-        birthDate: birthDate ? new Date(birthDate) : null,
-        gender,
-        address,
-        bio,
-        parentId: parentId || null,
-        profilePicture: profilePicture || null,
-      },
+    // Validate spouse if provided
+    if (spouseId) {
+      const potentialSpouse = await prisma.node.findUnique({
+        where: { id: spouseId },
+      })
+
+      if (!potentialSpouse) {
+        return NextResponse.json({ error: "Spouse not found" }, { status: 400 })
+      }
+
+      if (potentialSpouse.treeId !== tree.id) {
+        return NextResponse.json({ error: "Spouse must belong to the same tree" }, { status: 400 })
+      }
+
+      if (potentialSpouse.spouseId) {
+        return NextResponse.json({ error: "Selected person already has a spouse" }, { status: 400 })
+      }
+    }
+
+    // Create node with spouse (use transaction for bidirectional sync)
+    const node = await prisma.$transaction(async (tx) => {
+      // Create the new node
+      const newNode = await tx.node.create({
+        data: {
+          treeId: tree.id,
+          name,
+          nickname,
+          email,
+          phone,
+          birthDate: birthDate ? new Date(birthDate) : null,
+          gender,
+          address,
+          bio,
+          parentId: parentId || null,
+          profilePicture: profilePicture || null,
+          spouseId: spouseId || null,
+        },
+      })
+
+      // If spouse was set, update the spouse to point back (bidirectional sync)
+      if (spouseId) {
+        await tx.node.update({
+          where: { id: spouseId },
+          data: { spouseId: newNode.id },
+        })
+      }
+
+      return newNode
     })
 
     return NextResponse.json({ node }, { status: 201 })

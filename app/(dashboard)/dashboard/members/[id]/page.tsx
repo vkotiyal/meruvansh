@@ -24,6 +24,7 @@ interface Node {
   id: string
   name: string
   nickname?: string | null
+  spouseId?: string | null
 }
 
 export default function EditMemberPage({ params }: { params: { id: string } }) {
@@ -44,6 +45,7 @@ export default function EditMemberPage({ params }: { params: { id: string } }) {
     address: "",
     bio: "",
     parentId: "",
+    spouseId: "",
     profilePicture: "",
   })
 
@@ -76,6 +78,7 @@ export default function EditMemberPage({ params }: { params: { id: string } }) {
         address: data.node.address || "",
         bio: data.node.bio || "",
         parentId: data.node.parentId || "none",
+        spouseId: data.node.spouseId || "none",
         profilePicture: data.node.profilePicture || "",
       })
     } catch {
@@ -113,10 +116,11 @@ export default function EditMemberPage({ params }: { params: { id: string } }) {
     setLoading(true)
 
     try {
-      // Prepare data - convert "none" or empty parentId to null
+      // Prepare data - convert "none" or empty values to null
       const submitData = {
         ...formData,
         parentId: formData.parentId && formData.parentId !== "none" ? formData.parentId : null,
+        spouseId: formData.spouseId && formData.spouseId !== "none" ? formData.spouseId : null,
       }
 
       const response = await fetch(`/api/nodes/${params.id}`, {
@@ -279,6 +283,34 @@ export default function EditMemberPage({ params }: { params: { id: string } }) {
                         {node.nickname && ` "${node.nickname}"`}
                       </SelectItem>
                     ))}
+                  </SelectContent>
+                </Select>
+              </div>
+
+              <div className="space-y-2">
+                <Label htmlFor="spouse">Spouse (Optional)</Label>
+                <Select
+                  value={formData.spouseId}
+                  onValueChange={(value) => setFormData((prev) => ({ ...prev, spouseId: value }))}
+                  disabled={fetchingNodes || loading}
+                >
+                  <SelectTrigger>
+                    <SelectValue placeholder={fetchingNodes ? "Loading..." : "None"} />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="none">None</SelectItem>
+                    {nodes
+                      .filter(
+                        (node) =>
+                          // Show nodes without a spouse, OR the current spouse
+                          !node.spouseId || node.spouseId === params.id
+                      )
+                      .map((node) => (
+                        <SelectItem key={node.id} value={node.id}>
+                          {node.name}
+                          {node.nickname && ` "${node.nickname}"`}
+                        </SelectItem>
+                      ))}
                   </SelectContent>
                 </Select>
               </div>

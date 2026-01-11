@@ -27,8 +27,12 @@ export default async function DashboardPage() {
   return (
     <div className="space-y-8">
       <PageHeader
-        title={`Welcome back, ${session!.user.name || "User"}!`}
-        description={isAdmin ? "Manage your family tree" : "Explore your family tree"}
+        title={
+          isAdmin
+            ? `Welcome back, ${session!.user.name?.split(" ")[0] || "Admin"}!`
+            : `Welcome to ${tree?.name || "Family Tree"}`
+        }
+        description={isAdmin ? "Manage your family tree" : "You have read-only access"}
         actions={
           isAdmin && (
             <NavButton href="/dashboard/members/add" icon={<UserPlus className="mr-2 h-4 w-4" />}>

@@ -1,6 +1,7 @@
 import { getServerSession } from "next-auth"
 import { redirect } from "next/navigation"
 import { authOptions } from "@/lib/auth"
+import { prisma } from "@/lib/prisma"
 import Link from "next/link"
 import { TreePine } from "lucide-react"
 import { MobileNav } from "@/components/mobile-nav"
@@ -15,6 +16,17 @@ export default async function DashboardLayout({ children }: { children: React.Re
   }
 
   const isAdmin = session.user.role === "admin"
+
+  // Get tree name for display
+  const tree = await prisma.tree.findUnique({
+    where: { id: session.user.treeId },
+    select: { name: true },
+  })
+
+  // Display name: For admin show user name, for viewer show tree name
+  const displayName = isAdmin
+    ? session.user.name || session.user.email
+    : tree?.name || "Family Tree"
 
   return (
     <div className="min-h-screen bg-background">
@@ -34,12 +46,12 @@ export default async function DashboardLayout({ children }: { children: React.Re
             </div>
             <div className="flex items-center gap-2 sm:gap-4">
               <span className="hidden text-sm text-gray-700 sm:inline" aria-label="Current user">
-                {session.user.name || session.user.email}
+                {displayName}
               </span>
               <div className="hidden sm:block">
                 <SignoutDialog />
               </div>
-              <MobileNav isAdmin={isAdmin} userName={session.user.name || session.user.email} />
+              <MobileNav isAdmin={isAdmin} userName={displayName} />
             </div>
           </div>
         </div>
