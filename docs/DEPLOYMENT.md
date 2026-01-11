@@ -153,7 +153,7 @@ Vercel automatically deploys:
 
 Every PR gets a unique preview URL:
 
-- `https://vanshvriksh-git-feature-branch-username.vercel.app`
+- `https://meruvansh-git-feature-branch-username.vercel.app`
 - Perfect for testing before merging
 
 ## Custom Domain (Optional)
