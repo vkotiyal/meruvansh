@@ -4,6 +4,8 @@ import { authOptions } from "@/lib/auth"
 import { prisma } from "@/lib/prisma"
 import { isAdmin } from "@/lib/authorization"
 
+export const dynamic = "force-dynamic"
+
 // GET tree details
 export async function GET() {
   try {
